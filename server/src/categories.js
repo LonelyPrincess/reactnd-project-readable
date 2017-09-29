@@ -1,26 +1,41 @@
-const clone = require('clone')
-const config = require('./config')
+/**
+ * This module contains methods to interact with the categories database.
+ *
+ * @module Readable/API/Categories
+ * @author Richard Kalehoff <richardkalehoff@gmail.com>
+ * @author Sara Hernández <sara.her.su@gmail.com>
+ */
 
-let db = {}
-
+const clone = require('clone');
 const defaultData = require('../data/categories.json');
 
+let db = {};
+
+/**
+ * Initialize database content to default data or, if it already exists
+ * for current user session, return existing data.
+ * @param {string} token - Token to identify user session.
+ * @returns {array} Available categories in database.
+ */
 function getData (token) {
-  //Each token has it's own copy of the DB. The token in this case is like an app id.
-  let data = db[token]
-  //This populates the default user data if there isn't any in the db.
-  if (data == null) {
-    data = db[token] = clone(defaultData)
+  let data = db[token];
+  if (!data) {
+    data = db[token] = clone(defaultData);
   }
-  return data
+  return data;
 }
 
+/**
+ * Obtain list of all categories.
+ * @param {string} token - Token to identify user session.
+ * @returns {Promise} Promise object with an array of categories.
+ */
 function getAll (token) {
   return new Promise((res) => {
     res(getData(token))
-  })
+  });
 }
 
 module.exports = {
   getAll
-}
+};
