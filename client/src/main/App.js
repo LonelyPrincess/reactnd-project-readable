@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import * as PostsAPI from './utils/PostsAPI';
+import * as PostActions from './actions/post';
 
 class App extends Component {
   state = {
@@ -15,6 +17,16 @@ class App extends Component {
       });
   }
 
+  incrementPostScore = (post, value) => {
+    let posts = this.state.posts;
+    let postIndex = posts
+      .findIndex((item) => item.id === post.id);
+
+    posts[postIndex].voteScore += value;
+
+    this.setState({ posts });
+  };
+
   render() {
     return (
       <div>
@@ -27,6 +39,10 @@ class App extends Component {
               <p>Posted by {post.author} on {new Date(post.timestamp).toLocaleString()} · {post.commentCount} comments</p>
               <p>{post.body}</p>
               <div className={'score ' + (score > 0 ? 'positive' : (score < 0 ? 'negative' : null))}>{score}</div>
+              <div className="actions">
+                <button onClick={() => this.incrementPostScore(post, 1)}>Upvote</button>
+                <button onClick={() => this.incrementPostScore(post, -1)}>Downvote</button>
+              </div>
             </article>
           );
         })}
@@ -35,4 +51,21 @@ class App extends Component {
   }
 }
 
-export default App;
+// We transform the state structure as we had it in our reducer
+// as we want it in our component props
+function mapStateToProps(posts) {
+  return {
+    posts: posts
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      createPost: (data) => dispatch(PostActions.createPost(data)),
+      updatePostScore: (data) => dispatch(PostActions.updatePostScore(data))
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
