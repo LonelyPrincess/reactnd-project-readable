@@ -1,4 +1,5 @@
 import {
+  FETCH_POSTS,
   CREATE_POST,
   UPDATE_POST_SCORE
 } from '../actions/post';
@@ -13,16 +14,21 @@ function posts (state = initialPostState, action) {
   const { title, author, body, category } = action;
 
   switch (action.type) {
+    case FETCH_POSTS:
+      state = action.status === 'success' ? action.response: [];
+      break;
     case CREATE_POST:
       state.push({ title, author, body, category });
-      return state;
+      break;
     case UPDATE_POST_SCORE:
       let postIndex = state.findIndex((item) => item.id === action.postId);
       state[postIndex] += (state.voteType === "upVote" ? 1 : -1);
-      return state;
+      break;
     default:
-      return state;
+      console.warn(`Unknown action ${action.type}`);
   }
+
+  return state;
 }
 
 export default posts;

@@ -1,24 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import * as PostsAPI from './utils/PostsAPI';
 import * as PostActions from './actions/post';
 
 class App extends Component {
-  state = {
-    posts: []
-  };
 
   componentWillMount () {
-    PostsAPI.getAll()
-      .then((posts) => {
-        console.log(`${posts.length} posts found`);
-        this.setState({ posts });
-      });
+    this.props.actions.fetchPosts();
   }
 
+  // TODO: do this inside of a reducer!!!
   incrementPostScore = (post, value) => {
-    let posts = this.state.posts;
+    let posts = this.props.posts;
     let postIndex = posts
       .findIndex((item) => item.id === post.id);
 
@@ -31,7 +24,7 @@ class App extends Component {
     return (
       <div>
         <h1>Posts</h1>
-        {this.state.posts.map((post) => {
+        {this.props.posts.map((post) => {
           let score = post.voteScore;
           return (
             <article key={post.id}>
@@ -62,6 +55,7 @@ function mapStateToProps(posts) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
+      fetchPosts: () => dispatch(PostActions.fetchPosts()),
       createPost: (data) => dispatch(PostActions.createPost(data)),
       updatePostScore: (data) => dispatch(PostActions.updatePostScore(data))
     }
