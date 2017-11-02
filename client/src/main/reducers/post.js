@@ -1,5 +1,6 @@
 import {
   FETCH_POSTS,
+  DELETE_POST,
   UPDATE_POST_SCORE
 } from '../actions/post';
 
@@ -16,12 +17,18 @@ function posts (state = initialPostState, action) {
   // connected components will not re-render
   let updatedState = state.slice();
 
+  let postIndex;
+
   switch (action.type) {
     case FETCH_POSTS:
       updatedState = action.status === 'success' ? action.response: [];
       break;
+    case DELETE_POST:
+      postIndex = updatedState.findIndex((item) => item.id === action.response.id);
+      updatedState.splice(postIndex, 1);
+      break;
     case UPDATE_POST_SCORE:
-      let postIndex = updatedState.findIndex((item) => item.id === action.response.id);
+      postIndex = updatedState.findIndex((item) => item.id === action.response.id);
       updatedState[postIndex].voteScore = action.response.voteScore;
       break;
     default:

@@ -28,6 +28,7 @@ class App extends Component {
               <div className="actions">
                 <button onClick={() => this.incrementPostScore(post, "upVote")}>Upvote</button>
                 <button onClick={() => this.incrementPostScore(post, "downVote")}>Downvote</button>
+                <button onClick={() => this.props.actions.deletePost({ post })}>Delete</button>
               </div>
             </article>
           );
@@ -49,6 +50,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       fetchPosts: () => dispatch(PostActions.fetchPosts()),
+      deletePost: (data) => dispatch(PostActions.deletePost(data)),
       updatePostScore: (data) => dispatch(PostActions.updatePostScore(data))
     }
   };

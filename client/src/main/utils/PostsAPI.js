@@ -35,7 +35,7 @@ export const getAll = () => {
 };
 
 /**
- * Update shelf for an existing book instance.
+ * Update score for an existing post.
  * @param {Object} post - Post to update.
  * @param {string} option - Type of vote to apply (upvote or downvote).
  * @returns {Promise} Promise object with updated post.
@@ -48,5 +48,17 @@ export const vote = (post, option) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ option })
+  }).then(res => res.json());
+};
+
+/**
+ * Remove an existing post.
+ * @param {Object} post - Post to delete.
+ * @returns {Promise} Promise object with deleted post.
+ */
+export const remove = (post, option) => {
+  return fetch(`${api}/posts/${post.id}`, {
+    method: 'DELETE',
+    headers
   }).then(res => res.json());
 };
