@@ -9,15 +9,8 @@ class App extends Component {
     this.props.actions.fetchPosts();
   }
 
-  // TODO: do this inside of a reducer!!!
   incrementPostScore = (post, value) => {
-    let posts = this.props.posts;
-    let postIndex = posts
-      .findIndex((item) => item.id === post.id);
-
-    posts[postIndex].voteScore += value;
-
-    this.setState({ posts });
+    this.props.actions.updatePostScore({ post, voteType: value });
   };
 
   render() {
@@ -33,8 +26,8 @@ class App extends Component {
               <p>{post.body}</p>
               <div className={'score ' + (score > 0 ? 'positive' : (score < 0 ? 'negative' : null))}>{score}</div>
               <div className="actions">
-                <button onClick={() => this.incrementPostScore(post, 1)}>Upvote</button>
-                <button onClick={() => this.incrementPostScore(post, -1)}>Downvote</button>
+                <button onClick={() => this.incrementPostScore(post, "upVote")}>Upvote</button>
+                <button onClick={() => this.incrementPostScore(post, "downVote")}>Downvote</button>
               </div>
             </article>
           );

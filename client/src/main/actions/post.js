@@ -26,20 +26,23 @@ export function fetchPosts ({ status, response } = {}) {
   };
 }
 
-export function createPost ({ title, author, body, category }) {
-  return {
-    type: CREATE_POST,
-    title,
-    author,
-    body,
-    category
-  };
-}
+export function updatePostScore ({ status = null, response = null, post, voteType } = {}) {
 
-export function updatePostScore ({ postId, voteType }) {
-  return {
-    type: UPDATE_POST_SCORE,
-    postId: postId,
-    voteType
-  };
-}
+  if (status === 'success' || status === 'error') {
+      return {
+        type: UPDATE_POST_SCORE,
+        status,
+        response,
+        voteType
+      };
+    }
+
+    return (dispatch) => {
+      PostsAPI.vote(post, voteType)
+        .then((post) => {
+          console.log(`${post.id} has an score of ${post.voteScore}`);
+          dispatch(updatePostScore({ status: 'success', response: post }));
+        })
+        .catch((error) => dispatch(updatePostScore({ status: 'error', response: error })));
+    };
+  }

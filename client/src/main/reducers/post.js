@@ -11,7 +11,8 @@ const initialPostState = [];
 
 // If state is undefined, it will receive initialState by default
 function posts (state = initialPostState, action) {
-  const { title, author, body, category } = action;
+
+  let updatedState = state.slice();
 
   switch (action.type) {
     case FETCH_POSTS:
@@ -21,14 +22,14 @@ function posts (state = initialPostState, action) {
       state.push({ title, author, body, category });
       break;
     case UPDATE_POST_SCORE:
-      let postIndex = state.findIndex((item) => item.id === action.postId);
-      state[postIndex] += (state.voteType === "upVote" ? 1 : -1);
+      let postIndex = updatedState.findIndex((item) => item.id === action.response.id);
+      updatedState[postIndex].voteScore = action.response.voteScore;
       break;
     default:
       console.warn(`Unknown action ${action.type}`);
   }
 
-  return state;
+  return updatedState;
 }
 
 export default posts;
