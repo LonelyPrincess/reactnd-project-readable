@@ -49,7 +49,6 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       fetchPosts: () => dispatch(PostActions.fetchPosts()),
-      createPost: (data) => dispatch(PostActions.createPost(data)),
       updatePostScore: (data) => dispatch(PostActions.updatePostScore(data))
     }
   };

@@ -1,6 +1,5 @@
 import {
   FETCH_POSTS,
-  CREATE_POST,
   UPDATE_POST_SCORE
 } from '../actions/post';
 
@@ -12,14 +11,14 @@ const initialPostState = [];
 // If state is undefined, it will receive initialState by default
 function posts (state = initialPostState, action) {
 
+  // NOTE: We must ensure we're not updating the current state variable!!
+  // If we override the current variable instead of returning a new instance,
+  // connected components will not re-render
   let updatedState = state.slice();
 
   switch (action.type) {
     case FETCH_POSTS:
-      state = action.status === 'success' ? action.response: [];
-      break;
-    case CREATE_POST:
-      state.push({ title, author, body, category });
+      updatedState = action.status === 'success' ? action.response: [];
       break;
     case UPDATE_POST_SCORE:
       let postIndex = updatedState.findIndex((item) => item.id === action.response.id);

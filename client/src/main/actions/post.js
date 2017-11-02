@@ -2,7 +2,6 @@ import * as PostsAPI from '../utils/PostsAPI';
 
 /* --- Action types --- */
 export const FETCH_POSTS = 'FETCH_POSTS';
-export const CREATE_POST = 'CREATE_POST';
 export const UPDATE_POST_SCORE = 'UPDATE_POST_SCORE';
 
 /* --- Action creators --- */
