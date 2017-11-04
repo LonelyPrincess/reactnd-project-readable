@@ -5,6 +5,7 @@ export const FETCH_POSTS = 'FETCH_POSTS';
 export const DELETE_POST = 'DELETE_POST';
 export const UPDATE_POST_SCORE = 'UPDATE_POST_SCORE';
 export const SORT_POST_LIST = 'SORT_POST_LIST';
+export const FILTER_POSTS_BY_CATEGORY = 'FILTER_POSTS_BY_CATEGORY';
 
 /* --- Action creators --- */
 export function fetchPosts ({ status, response } = {}) {
@@ -72,6 +73,24 @@ export function sortPostsBy ({ criteria }) {
   return {
     type: SORT_POST_LIST,
     criteria
+  };
+}
+
+export function filterPostsBy ({ status = null, response = null, category }) {
+
+  if (status === 'success' || status === 'error') {
+    return {
+      type: FILTER_POSTS_BY_CATEGORY,
+      status,
+      response,
+      category
+    };
+  }
+
+  return (dispatch) => {
+    PostsAPI.getFromCategory(category)
+      .then((posts) => dispatch(filterPostsBy({ status: 'success', response: posts, category })))
+      .catch((error) => dispatch(filterPostsBy({ status: 'error', response: error, category })));
   };
 }
 

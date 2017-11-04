@@ -26,8 +26,8 @@ const headers = {
 };
 
 /**
- * Obtain the list of the books in current user's collection.
- * @returns {Promise} Promise object with an array of books.
+ * Obtain the list of all of the available posts.
+ * @returns {Promise} Promise object with an array of posts.
  */
 export const getAll = () => {
   return fetch(`${api}/posts`, { headers })
@@ -61,4 +61,22 @@ export const remove = (post, option) => {
     method: 'DELETE',
     headers
   }).then(res => res.json());
+};
+
+/**
+ * Obtain the list of the available categories.
+ * @returns {Promise} Promise object with an array of categories.
+ */
+export const getCategories = () => {
+  return fetch(`${api}/categories`, { headers })
+    .then(res => res.json());
+};
+
+/**
+ * Obtain the list of the posts published under the specified category.
+ * @returns {Promise} Promise object with an array of posts.
+ */
+export const getFromCategory = (category) => {
+  return fetch(`${api}/${category.path}/posts`, { headers })
+    .then(res => res.json());
 };

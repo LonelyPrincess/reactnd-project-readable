@@ -1,17 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 
 import App from './main/App';
-import reducer from './main/reducers/post';
+import postReducer from './main/reducers/post';
+import categoryReducer from './main/reducers/category';
 
 import './res/styles/index.css';
 
+const rootReducer = combineReducers({
+  postReducer,
+  categoryReducer
+})
+
 const store = createStore(
-  reducer,
+  rootReducer,
   applyMiddleware(thunk)
 );
 
