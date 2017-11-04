@@ -4,6 +4,7 @@ import * as PostsAPI from '../utils/PostsAPI';
 export const FETCH_POSTS = 'FETCH_POSTS';
 export const DELETE_POST = 'DELETE_POST';
 export const UPDATE_POST_SCORE = 'UPDATE_POST_SCORE';
+export const SORT_POST_LIST = 'SORT_POST_LIST';
 
 /* --- Action creators --- */
 export function fetchPosts ({ status, response } = {}) {
@@ -64,6 +65,13 @@ export function deletePost ({ status = null, response = null, post } = {}) {
         dispatch(deletePost({ status: 'success', response: post }));
       })
       .catch((error) => dispatch(deletePost({ status: 'error', response: error })));
+  };
+}
+
+export function sortPostsBy ({ criteria }) {
+  return {
+    type: SORT_POST_LIST,
+    criteria
   };
 }
 

@@ -13,10 +13,16 @@ class App extends Component {
     this.props.actions.updatePostScore({ post, voteType: value });
   };
 
+  sortPostsBy = (criteria) => {
+    this.props.actions.sortPostsBy({ criteria });
+  };
+
   render() {
     return (
       <div>
         <h1>Posts</h1>
+        <button onClick={() => this.sortPostsBy('timestamp')}>Sort by date</button>
+        <button onClick={() => this.sortPostsBy('voteScore')}>Sort by score</button>
         {this.props.posts.map((post) => {
           let score = post.voteScore;
           return (
@@ -51,7 +57,8 @@ function mapDispatchToProps(dispatch) {
     actions: {
       fetchPosts: () => dispatch(PostActions.fetchPosts()),
       deletePost: (data) => dispatch(PostActions.deletePost(data)),
-      updatePostScore: (data) => dispatch(PostActions.updatePostScore(data))
+      updatePostScore: (data) => dispatch(PostActions.updatePostScore(data)),
+      sortPostsBy: (data) => dispatch(PostActions.sortPostsBy(data)),
     }
   };
 }
