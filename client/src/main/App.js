@@ -18,7 +18,7 @@ class App extends Component {
     this.props.actions.sortPostsBy({ criteria });
   };
 
-  sortPostsBy = (category) => {
+  filterPostsBy = (category) => {
     console.log(`Filtering posts by category ${category.name}...`);
     this.props.actions.filterPostsBy({ category });
   };
@@ -29,7 +29,7 @@ class App extends Component {
         <h1>Categories</h1>
         <ul>
           {this.props.categories.map((category) => (
-            <li key={category.path} onClick={() => this.sortPostsBy(category)}>{category.name}</li>
+            <li key={category.path} onClick={() => this.filterPostsBy(category)}>{category.name}</li>
           ))}
         </ul>
         <h1>Posts</h1>
