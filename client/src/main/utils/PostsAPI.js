@@ -80,3 +80,13 @@ export const getFromCategory = (category) => {
   return fetch(`${api}/${category.path}/posts`, { headers })
     .then(res => res.json());
 };
+
+
+/**
+ * Obtain the list of comments for a certain posts.
+ * @returns {Promise} Promise object with an array of comments.
+ */
+export const getPostComments = (post) => {
+  return fetch(`${api}/posts/${post.id}/comments`, { headers })
+    .then(res => res.json());
+};
