@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: Lato, sans-serif;
 }
 
 /* --- Test styles --- */
@@ -88,10 +88,7 @@ small > em {
 
 section.side-block {
     background: white;
-    border-radius: 5px;
     border: #de212e 1px solid;
-    overflow: hidden;
-    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25);
 }
 
 .side-block h1 {
@@ -117,20 +114,7 @@ main small {
     font-size: .75em;
 }
 
-.score {
-    float: right;
-    width: 3em;
-    background: #de212e;
-    padding: .25em .5em;
-    color: white;
-    text-align: center;
-    font-family: Lato;
-    border: solid 1px #de212e;
-    border-radius: 5px;
-}
-
 .post-body {
-    font-family: Lato;
     padding: 1em 0;
 }
 
@@ -161,6 +145,68 @@ main small {
     margin-top: 0;
 }
 
+.score-box {
+    display: flex;
+    width: 70px;
+    flex-direction: column;
+    height: 100px;
+    justify-content: flex-end;
+}
+
+.score-box .icon {
+    flex-grow: 1;
+    background-repeat: no-repeat;
+    background-image: url('../images/lebkuchen-poker-face.svg');
+    background-size: 80%;
+    background-position-y: 10px;
+    background-position-x: center;
+}
+
+.score-box.positive .icon {
+    background-image: url('../images/lebkuchen-smile.svg');
+}
+
+.score-box.negative .icon {
+    background-image: url('../images/lebkuchen-angry.svg');
+}
+
+.score-box .score {
+    background: grey;
+    padding: .25em .5em;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.score-box.positive .score {
+    background: green;
+}
+
+.score-box.negative .score {
+    background: #de212e;
+}
+
+.score-box {
+    float: right;
+    margin-left: 1em;
+}
+
+article.post {
+    padding: 1em 0;
+    position: relative;
+}
+
+article.post::after {
+    content: '';
+    width: 100%;
+    height: 3px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: red;
+    border-radius: 50%;
+}
+
 /* --- Test styles for comment boxes --- */
 
 .comment-list {
@@ -186,7 +232,7 @@ main small {
 }
 
 .comment, .comment::after {
-    background: lightgrey;
+    background: #fdf3f4;
 }
 
 .comment:nth-child(odd)::after {
@@ -195,5 +241,5 @@ main small {
 }
 
 .comment:nth-child(odd), .comment:nth-child(odd)::after {
-    background: linen;
+    background: #fff5eb;
 }

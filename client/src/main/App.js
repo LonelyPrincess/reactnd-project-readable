@@ -58,10 +58,15 @@ class App extends Component {
               let score = post.voteScore;
               return (
                 <article className="post" key={post.id}>
+                  <div className={'score-box ' + (score > 0 ? 'positive' : (score < 0 ? 'negative' : null))}>
+                    <div className="icon"></div>
+                    <div className="score">{score}</div>
+                  </div>
+
                   <h2>{post.title}</h2>
                   <small>Posted by <em>{post.author}</em> on {new Date(post.timestamp).toLocaleString()} · {post.commentCount} comments</small>
                   <main className="post-body">{post.body}</main>
-                  <div className={'score ' + (score > 0 ? 'positive' : (score < 0 ? 'negative' : null))}>{score}</div>
+
                   <div className="actions">
                     <button onClick={() => this.incrementPostScore(post, "upVote")}>Upvote</button>
                     <button onClick={() => this.incrementPostScore(post, "downVote")}>Downvote</button>
