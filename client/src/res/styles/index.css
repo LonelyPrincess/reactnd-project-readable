@@ -6,7 +6,7 @@ body {
 
 /* --- Test styles --- */
 
-@import url('https://fonts.googleapis.com/css?family=Barlow|Lato|Lora|Open+Sans|Pacifico|Ubuntu|Vollkorn+SC|Abel');
+@import url('https://fonts.googleapis.com/css?family=Barlow|Lato|Lora|Open+Sans|Pacifico|Ubuntu|Vollkorn+SC');
 
 .container {
     max-width: 900px;
@@ -89,6 +89,7 @@ small > em {
 section.side-block {
     background: white;
     border: #de212e 1px solid;
+    margin-bottom: 1em;
 }
 
 .side-block h1 {
@@ -96,10 +97,8 @@ section.side-block {
     background: #de212e;
     padding: .75em;
     color: white;
-    font-family: Abel;
     font-weight: 400;
 }
-
 
 main h1, h2, h3 {
     color: #de212e;
@@ -205,6 +204,22 @@ article.post::after {
     left: 0;
     background: red;
     border-radius: 50%;
+}
+
+a, a:visited, a:active {
+    cursor: pointer;
+    color: #de212e;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+section.side-block ul {
+    list-style-type: circle;
+    line-height: 2em;
+    text-transform: capitalize;
 }
 
 /* --- Test styles for comment boxes --- */

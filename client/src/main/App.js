@@ -34,7 +34,7 @@ class App extends Component {
         <div className="container logo">
           <header>
             <h1>★ Readable ★</h1>
-            <small><em>Read</em> to learn and <em>post</em> your own vision of the world</small>
+            <small><em>Read</em> to learn and <em>post</em> your own thoughts</small>
           </header>
         </div>
 
@@ -44,16 +44,31 @@ class App extends Component {
               <h1>Categories</h1>
               <ul>
                 {this.props.categories.map((category) => (
-                  <li key={category.path} onClick={() => this.filterPostsBy(category)}>{category.name}</li>
+                  <li key={category.path}><a onClick={() => this.filterPostsBy(category)}>{category.name}</a></li>
                 ))}
+              </ul>
+            </section>
+
+            <section className="side-block">
+              <h1>Sort by</h1>
+              <ul>
+                <li><a onClick={() => this.sortPostsBy('timestamp')}>Date</a></li>
+                <li><a onClick={() => this.sortPostsBy('voteScore')}>Score</a></li>
+              </ul>
+            </section>
+
+            <section className="side-block">
+              <h1>Readable</h1>
+              <ul>
+                <li><a href="https://es.linkedin.com/in/sara-hern%C3%A1ndez-su%C3%A1rez-167013115" target="_blank">Author</a></li>
+                <li><a href="https://github.com/LonelyPrincess/reactnd-project-readable" target="_blank">Repository</a></li>
               </ul>
             </section>
           </aside>
 
           <main>
-            <h1>Posts</h1>
-            <button onClick={() => this.sortPostsBy('timestamp')}>Sort by date</button>
-            <button onClick={() => this.sortPostsBy('voteScore')}>Sort by score</button>
+            <div className="roadmap"><a href="#">Main</a> > <a href="#">List</a></div>
+
             {this.props.posts.map((post) => {
               let score = post.voteScore;
               return (
