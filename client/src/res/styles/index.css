@@ -3,3 +3,197 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+/* --- Test styles --- */
+
+@import url('https://fonts.googleapis.com/css?family=Barlow|Lato|Lora|Open+Sans|Pacifico|Ubuntu|Vollkorn+SC|Abel');
+
+.container {
+    max-width: 900px;
+    display: flex;
+    margin: auto;
+}
+
+.container > * {
+    padding: 1em;
+    margin: .5em;
+}
+
+.container > *:not(:last-child) {
+    margin-right: 0;
+}
+
+.container > aside {
+    min-width: 200px;
+}
+
+.container > main {
+    flex-grow: 1;
+}
+
+.container > header {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+header > h1 {
+    color: #de212e;
+    margin: 0;
+    font-family: 'Pacifico';
+    font-size: 2.5em;
+    font-weight: 100;
+}
+
+header > small {
+    color: gray;
+    display: block;
+    padding: 0 2em;
+    font-family: 'Vollkorn SC';
+}
+
+small > em {
+    font-style: normal;
+    color:#de212e;
+}
+
+.container.logo {
+    position: relative;
+}
+
+.logo::before {
+    background-repeat: no-repeat;
+    background-image: url('../images/video-content-creator.svg');
+    background-position: center;
+    background-size: cover;
+    content: '';
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    opacity: 0.05;
+}
+
+.logo::after {
+    content: '';
+    width: 100%;
+    height: 5px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: red;
+    border-radius: 50%;
+}
+
+section.side-block {
+    background: white;
+    border-radius: 5px;
+    border: #de212e 1px solid;
+    overflow: hidden;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+.side-block h1 {
+    margin: 0;
+    background: #de212e;
+    padding: .75em;
+    color: white;
+    font-family: Abel;
+    font-weight: 400;
+}
+
+
+main h1, h2, h3 {
+    color: #de212e;
+    font-family: Ubuntu;
+    margin-bottom: .5em;
+}
+
+main small {
+    color: gray;
+    display: block;
+    font-family: 'Vollkorn SC';
+    font-size: .75em;
+}
+
+.score {
+    float: right;
+    width: 3em;
+    background: #de212e;
+    padding: .25em .5em;
+    color: white;
+    text-align: center;
+    font-family: Lato;
+    border: solid 1px #de212e;
+    border-radius: 5px;
+}
+
+.post-body {
+    font-family: Lato;
+    padding: 1em 0;
+}
+
+.actions button {
+    margin-right: .5em;
+    border: 1px solid #de212e;
+    padding: .5em;
+    color: #de212e;
+    background: white;
+    border-radius: 5px;
+}
+
+.actions {
+    text-align: center;
+    margin: 1em;
+}
+
+.comment-box {
+    padding: 0 .5em;
+}
+
+.comment small {
+    text-align: right;
+    padding: 0;
+}
+
+.comment p {
+    margin-top: 0;
+}
+
+/* --- Test styles for comment boxes --- */
+
+.comment-list {
+    margin: 2em;
+}
+
+.comment {
+    padding: 1em;
+    border-radius: .3em;
+    position: relative;
+    margin-bottom: 2.5em;
+}
+
+.comment::after {
+    content: '';
+    width: 1.25em;
+    height: 1.25em;
+    position: absolute;
+    bottom: -0.6em;
+    right: 2em;
+    z-index: -1;
+    transform: rotate(45deg);
+}
+
+.comment, .comment::after {
+    background: lightgrey;
+}
+
+.comment:nth-child(odd)::after {
+    left: 2em;
+    right: unset;
+}
+
+.comment:nth-child(odd), .comment:nth-child(odd)::after {
+    background: linen;
+}
