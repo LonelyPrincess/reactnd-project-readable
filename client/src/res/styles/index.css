@@ -1,37 +1,34 @@
+@import url('https://fonts.googleapis.com/css?family=Lato|Pacifico|Ubuntu|Vollkorn+SC');
+
 body {
-  margin: 0;
-  padding: 0;
-  font-family: Lato, sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: Lato, sans-serif;
 }
 
-/* --- Test styles --- */
+* {
+    box-sizing: border-box;
+}
 
-@import url('https://fonts.googleapis.com/css?family=Barlow|Lato|Lora|Open+Sans|Pacifico|Ubuntu|Vollkorn+SC');
+/* --- Styles for page structure --- */
 
 .container {
-    max-width: 900px;
-    display: flex;
     margin: auto;
+    display: flex;
+    padding: 0 1em;
+    max-width: 860px;
+    flex-direction: column;
 }
 
-.container > * {
-    padding: 1em;
-    margin: .5em;
+.row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
 }
 
-.container > *:not(:last-child) {
-    margin-right: 0;
-}
+/* --- Styles for page header --- */
 
-.container > aside {
-    min-width: 200px;
-}
-
-.container > main {
-    flex-grow: 1;
-}
-
-.container > header {
+header {
     width: 100%;
     text-align: center;
     margin-bottom: 1em;
@@ -45,23 +42,14 @@ header > h1 {
     font-weight: 100;
 }
 
-header > small {
-    color: gray;
-    display: block;
-    padding: 0 2em;
-    font-family: 'Vollkorn SC';
-}
-
-small > em {
-    font-style: normal;
-    color:#de212e;
-}
-
-.container.logo {
+header.logo {
+    padding: 1.5em;
+    padding-bottom: 2em;
     position: relative;
+    flex-direction: column;
 }
 
-.logo::before {
+header.logo::before {
     background-repeat: no-repeat;
     background-image: url('../images/video-content-creator.svg');
     background-position: center;
@@ -75,7 +63,7 @@ small > em {
     opacity: 0.05;
 }
 
-.logo::after {
+header.logo::after {
     content: '';
     width: 100%;
     height: 5px;
@@ -84,6 +72,36 @@ small > em {
     left: 0;
     background: red;
     border-radius: 50%;
+}
+
+/* --- Test styles --- */
+
+:not(header).row > * {
+    padding: 1em;
+    margin: .5em;
+}
+
+.row > *:not(:last-child) {
+    margin-right: 0;
+}
+
+.row > aside {
+    min-width: 14em;
+}
+
+.row > main {
+    flex-grow: 1;
+}
+
+small {
+    color: gray;
+    display: block;
+    font-family: 'Vollkorn SC';
+}
+
+small > em {
+    font-style: normal;
+    color:#de212e;
 }
 
 section.side-block {

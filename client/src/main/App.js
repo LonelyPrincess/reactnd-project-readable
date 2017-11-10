@@ -30,15 +30,13 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <div className="container logo">
-          <header>
-            <h1>★ Readable ★</h1>
-            <small><em>Read</em> to learn and <em>post</em> your own thoughts</small>
-          </header>
-        </div>
+      <div className="container">
+        <header className="row logo">
+          <h1>★ Readable ★</h1>
+          <small><em>Read</em> to learn and <em>post</em> your own thoughts</small>
+        </header>
 
-        <div className="container">
+        <div className="row">
           <aside>
             <section className="side-block">
               <h1>Categories</h1>
@@ -67,7 +65,7 @@ class App extends Component {
           </aside>
 
           <main>
-            <div className="roadmap"><a href="#">Main</a> > <a href="#">List</a></div>
+            <div className="roadmap"><a>Main</a> > <a>List</a></div>
 
             {this.props.posts.map((post) => {
               let score = post.voteScore;
