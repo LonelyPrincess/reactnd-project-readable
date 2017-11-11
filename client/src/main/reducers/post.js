@@ -32,7 +32,10 @@ function posts (state = initialPostState, action) {
       break;
     case UPDATE_POST_SCORE:
       postIndex = updatedState.findIndex((item) => item.id === action.response.id);
-      updatedState[postIndex].voteScore = action.response.voteScore;
+      updatedState[postIndex] = {
+        ...updatedState[postIndex],
+        voteScore: action.response.voteScore
+      };
       break;
     case SORT_POST_LIST:
       sortPostsByProperty(updatedState, action.criteria);
