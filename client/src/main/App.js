@@ -5,15 +5,13 @@ import * as PostActions from './actions/post';
 import * as CommentActions from './actions/comment';
 import * as CategoryActions from './actions/category';
 
+import PostListItem from './components/PostListItem';
+
 class App extends Component {
   componentWillMount () {
     this.props.actions.fetchPosts();
     this.props.actions.fetchCategories();
   }
-
-  incrementPostScore = (post, value) => {
-    this.props.actions.updatePostScore({ post, voteType: value });
-  };
 
   sortPostsBy = (criteria) => {
     this.props.actions.sortPostsBy({ criteria });
@@ -67,28 +65,9 @@ class App extends Component {
           <main>
             <div className="roadmap"><a>Main</a> > <a>List</a></div>
 
-            {this.props.posts.map((post) => {
-              let score = post.voteScore;
-              return (
-                <article className="post" key={post.id}>
-                  <div className={'score-box ' + (score > 0 ? 'positive' : (score < 0 ? 'negative' : null))}>
-                    <div className="icon"></div>
-                    <div className="score">{score}</div>
-                  </div>
-
-                  <h2>{post.title}</h2>
-                  <small>Posted by <em>{post.author}</em> on {new Date(post.timestamp).toLocaleString()} · {post.commentCount} comments</small>
-                  <main className="post-body">{post.body}</main>
-
-                  <div className="actions">
-                    <button onClick={() => this.incrementPostScore(post, "upVote")}>Upvote</button>
-                    <button onClick={() => this.incrementPostScore(post, "downVote")}>Downvote</button>
-                    <button onClick={() => this.props.actions.deletePost({ post })}>Delete</button>
-                    <button onClick={() => this.getCommentsFor(post)}>Get comments</button>
-                  </div>
-                </article>
-              );
-            })}
+            {this.props.posts.map((post) => (
+              <PostListItem key={post.id} post={post} />
+            ))}
 
             <h3>Comments</h3>
             <div className="comment-box">
@@ -121,8 +100,6 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       fetchPosts: () => dispatch(PostActions.fetchPosts()),
-      deletePost: (data) => dispatch(PostActions.deletePost(data)),
-      updatePostScore: (data) => dispatch(PostActions.updatePostScore(data)),
       sortPostsBy: (data) => dispatch(PostActions.sortPostsBy(data)),
       filterPostsBy: (data) => dispatch(PostActions.filterPostsBy(data)),
       fetchCategories: () => dispatch(CategoryActions.fetchCategories()),
