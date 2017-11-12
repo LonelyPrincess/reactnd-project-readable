@@ -10,7 +10,8 @@ export function fetchCommentsForPost ({ status = null, response = null, post }) 
     return {
       type: FETCH_COMMENTS_FOR_POST,
       status,
-      response
+      response,
+      post
     };
   }
 
@@ -18,8 +19,8 @@ export function fetchCommentsForPost ({ status = null, response = null, post }) 
     PostsAPI.getPostComments(post)
       .then((comments) => {
         console.log(`${comments.length} comments found for post ${post.id}`);
-        dispatch(fetchCommentsForPost({ status: 'success', response: comments }));
+        dispatch(fetchCommentsForPost({ status: 'success', response: comments, post }));
       })
-      .catch((error) => dispatch(fetchCommentsForPost({ status: 'error', response: error })));
+      .catch((error) => dispatch(fetchCommentsForPost({ status: 'error', response: error, post })));
   };
 }
