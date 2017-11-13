@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import * as PostActions from '../actions/post';
 
@@ -23,7 +24,7 @@ function PostListItem (props) {
         <div className="score">{post.voteScore}</div>
       </div>
 
-      <h2>{post.title}</h2>
+      <Link to={`/post/${post.id}`}><h2>{post.title}</h2></Link>
       <small>Posted by <em>{post.author}</em> on {new Date(post.timestamp).toLocaleString()} · {post.commentCount} comments</small>
       <main className="post-body">{post.body}</main>
 
