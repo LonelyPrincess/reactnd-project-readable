@@ -26,7 +26,7 @@ function comments (state = initialState, action) {
       });
       break;
     default:
-      console.warn(`<CommentReducer> Unknown action ${action.type}`);
+      console.debug(`<CommentReducer> Unknown action ${action.type}`);
   }
 
   return updatedState;

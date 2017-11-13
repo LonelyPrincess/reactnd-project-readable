@@ -18,7 +18,7 @@ function categories (state = initialState, action) {
       updatedState.sort();
       break;
     default:
-      console.warn(`<CategoryReducer> Unknown action ${action.type}`);
+      console.debug(`<CategoryReducer> Unknown action ${action.type}`);
   }
 
   return updatedState;
