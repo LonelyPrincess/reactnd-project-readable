@@ -6,6 +6,7 @@ export const DELETE_POST = 'DELETE_POST';
 export const UPDATE_POST_SCORE = 'UPDATE_POST_SCORE';
 export const SORT_POST_LIST = 'SORT_POST_LIST';
 export const FILTER_POSTS_BY_CATEGORY = 'FILTER_POSTS_BY_CATEGORY';
+export const FETCH_POST_DATA = 'FETCH_POST_DATA';
 
 /* --- Action creators --- */
 export function fetchPosts ({ status, response } = {}) {
@@ -93,6 +94,23 @@ export function filterPostsBy ({ status = null, response = null, category }) {
       .catch((error) => dispatch(filterPostsBy({ status: 'error', response: error, category })));
   };
 }
+
+export function fetchPostData({ status = null, response = null, postId }) {
+
+    if (status === 'success' || status === 'error') {
+      return {
+        type: FETCH_POST_DATA,
+        status,
+        response
+      };
+    }
+
+    return (dispatch) => {
+      PostsAPI.get(postId)
+        .then((post) => dispatch(fetchPostData({ status: 'success', response: post })))
+        .catch((error) => dispatch(fetchPostData({ status: 'error', response: error })));
+    };
+  }
 
 // TODO: refactor this file! we could search for a way to extract common code
 // for async actions to a new generic method that can be reused later

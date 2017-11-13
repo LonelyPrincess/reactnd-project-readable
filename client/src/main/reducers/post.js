@@ -3,7 +3,8 @@ import {
   DELETE_POST,
   UPDATE_POST_SCORE,
   SORT_POST_LIST,
-  FILTER_POSTS_BY_CATEGORY
+  FILTER_POSTS_BY_CATEGORY,
+  FETCH_POST_DATA
 } from '../actions/post';
 
 /* --- Posts reducer --- */
@@ -41,12 +42,18 @@ function posts (state = initialPostState, action) {
       sortPostsByProperty(updatedState, action.criteria);
       break;
     case FILTER_POSTS_BY_CATEGORY:
-      console.log(`Showing ${action.response.length} posts for category ${action.category.name}...`);
+      console.log(`Showing ${action.response.length} posts for category ${action.category}...`);
       updatedState = action.status === 'success' ? action.response: [];
       sortPostsByProperty(updatedState, 'voteScore');
       break;
+    case FETCH_POST_DATA:
+      updatedState = [];
+      if (action.status === 'success') {
+        updatedState.push(action.response);
+      }
+      break;
     default:
-      console.warn(`<PostReducer> Unknown action ${action.type}`);
+      console.debug(`<PostReducer> Unknown action ${action.type}`);
   }
 
   return updatedState;

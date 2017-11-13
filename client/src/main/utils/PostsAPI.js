@@ -35,6 +35,16 @@ export const getAll = () => {
 };
 
 /**
+ * Obtain information on a single post.
+ * @returns {Promise} Promise object with a post.
+ */
+export const get = (postId) => {
+  return fetch(`${api}/posts/${postId}`, { headers })
+    .then(res => res.json());
+};
+
+
+/**
  * Update score for an existing post.
  * @param {Object} post - Post to update.
  * @param {string} option - Type of vote to apply (upvote or downvote).
@@ -77,7 +87,7 @@ export const getCategories = () => {
  * @returns {Promise} Promise object with an array of posts.
  */
 export const getFromCategory = (category) => {
-  return fetch(`${api}/${category.path}/posts`, { headers })
+  return fetch(`${api}/${category}/posts`, { headers })
     .then(res => res.json());
 };
 
