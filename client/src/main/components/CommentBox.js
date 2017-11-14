@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import CommentForm from './CommentForm';
 import * as CommentActions from '../actions/comment';
 
 /**
@@ -30,6 +31,10 @@ class CommentBox extends Component {
             <small>Posted by <em>{comment.author}</em> on {new Date(comment.timestamp).toLocaleString()}</small>
           </div>
         ))}
+
+        { /* Comment form */ }
+        <p>Wanna share your thoughts?</p>
+        <CommentForm post={this.props.post} />
       </div>
     );
   }

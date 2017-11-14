@@ -1,5 +1,6 @@
 import {
-  FETCH_COMMENTS_FOR_POST
+  FETCH_COMMENTS_FOR_POST,
+  POST_NEW_COMMENT
 } from '../actions/comment';
 
 /* --- Categories reducer --- */
@@ -24,6 +25,9 @@ function comments (state = initialState, action) {
           return 0;
         }
       });
+      break;
+    case POST_NEW_COMMENT:
+      updatedState.push(action.response);
       break;
     default:
       console.debug(`<CommentReducer> Unknown action ${action.type}`);

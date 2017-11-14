@@ -60,6 +60,8 @@ class App extends Component {
                 key={location.key}
                 postId={match.params.postId} />
             )} />
+
+            <div className="floating-btn" />
           </main>
         </div>
 

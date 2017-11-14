@@ -249,6 +249,52 @@ section.side-block ul {
     text-transform: capitalize;
 }
 
+.floating-btn {
+    border-radius: 50%;
+    background: #de212e;
+    position: fixed;
+    bottom: 2em;
+    width: 3em;
+    height: 3em;
+    right: 2em;
+    background-image: url('../images/add-new-document.svg');
+    background-size: 1.5em;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 1px 1px 1px 1px grey;
+}
+
+form {
+    width: 100%;
+    padding: 2em;
+    background: lemonchiffon;
+    border-radius: 5px;
+}
+
+form > * {
+    display: block;
+    width: 100%;
+    margin-bottom: .5em;
+}
+
+form > input, form > textarea {
+    padding: .5em;
+    border-radius: 5px;
+    border: solid 1px gray;
+}
+
+form > input:not(:last-child), form > textarea:not(:last-child) {
+    margin-bottom: 1.5em;
+}
+
+form label {
+    padding: 0 .5em;
+}
+
+form textarea {
+    min-height: 10em;
+}
+
 /* --- Test styles for comment boxes --- */
 
 .comment-list {

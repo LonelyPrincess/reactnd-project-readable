@@ -6,6 +6,8 @@
  * @author Sara Hernández <sara.her.su@gmail.com>
  */
 
+import generateUuid from 'generate-uuid';
+
 const api = 'http://localhost:3001';
 
 // Generate a unique token for storing your data on the backend server
@@ -98,4 +100,27 @@ export const getFromCategory = (category) => {
 export const getPostComments = (post) => {
   return fetch(`${api}/posts/${post.id}/comments`, { headers })
     .then(res => res.json());
+};
+
+/**
+ * Creates a new post and returns new object.
+ * @returns {Promise} Promise object with the created comment.
+ */
+export const postComment = (post, comment) => {
+  const data = {
+    id: generateUuid().substr(-12),
+    timestamp: new Date(),
+    body: comment.body,
+    author: comment.author,
+    parentId: post.id
+  }
+
+  return fetch(`${api}/comments`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }).then(res => res.json());
 };
