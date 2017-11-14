@@ -43,7 +43,6 @@ export const get = (postId) => {
     .then(res => res.json());
 };
 
-
 /**
  * Update score for an existing post.
  * @param {Object} post - Post to update.

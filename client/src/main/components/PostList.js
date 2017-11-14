@@ -23,7 +23,12 @@ class PostList extends Component {
 
     return (
       <div className="post-list">
-        <p>Displaying {posts.length} posts for <em>{category ? `${category}` : `all categories`}</em></p>
+        <small className="stats">
+          {posts.length
+            ? `Showing ${posts.length} posts `
+            : `No posts found `}
+          for <em>{category ? `"${category}"` : `all categories`}</em>
+        </small>
 
         {posts.map((post) => (
           <PostListItem key={post.id} post={post} />

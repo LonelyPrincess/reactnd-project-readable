@@ -24,11 +24,13 @@ class PostDetails extends Component {
     const { post } = this.props;
 
     if (!post) {
-      return null;
+      return (
+        <small>Post not found</small>
+      );
     }
 
     return (
-      <div>
+      <div className="post-details">
         <PostListItem post={post} />
         <CommentBox post={post} />
       </div>

@@ -47,16 +47,18 @@ class App extends Component {
           </aside>
 
           <main>
-            <Route path="/category/:category" render={({ match }) => (
+            <Route path="/category/:category" render={({ match, location }) => (
               <PostList
-                key={match.params.category}
+                key={location.key}
                 category={match.params.category} />
             )} />
 
             <Route path="/" exact component={PostList} />
 
-            <Route path="/post/:postId" render={({ match }) => (
-              <PostDetails postId={match.params.postId} />
+            <Route path="/post/:postId" render={({ match, location }) => (
+              <PostDetails
+                key={location.key}
+                postId={match.params.postId} />
             )} />
           </main>
         </div>

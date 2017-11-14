@@ -100,7 +100,7 @@ export function fetchPostData({ status = null, response = null, postId }) {
     if (status === 'success' || status === 'error') {
       return {
         type: FETCH_POST_DATA,
-        status,
+        status: (response.error ? 'error' : status),
         response
       };
     }
