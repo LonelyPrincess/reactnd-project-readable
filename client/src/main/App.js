@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, withRouter } from 'react-router-dom';
+import { Link, Route, withRouter } from 'react-router-dom';
 
 import * as PostActions from './actions/post';
 
 import PostList from './components/PostList';
+import PostForm from './components/PostForm';
 import PostDetails from './components/PostDetails';
 import CategoryList from './components/CategoryList';
 
@@ -61,7 +62,10 @@ class App extends Component {
                 postId={match.params.postId} />
             )} />
 
-            <div className="floating-btn" />
+            <Route path="/create" exact component={PostForm} />
+
+            { this.props.location.pathname !== "/create"
+              && <Link to="/create" className="floating-btn"></Link> }
           </main>
         </div>
 

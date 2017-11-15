@@ -103,7 +103,7 @@ export const getPostComments = (post) => {
 };
 
 /**
- * Creates a new post and returns new object.
+ * Creates a new comment and returns new object.
  * @returns {Promise} Promise object with the created comment.
  */
 export const postComment = (post, comment) => {
@@ -116,6 +116,30 @@ export const postComment = (post, comment) => {
   }
 
   return fetch(`${api}/comments`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }).then(res => res.json());
+};
+
+/**
+ * Creates a new post and returns new object.
+ * @returns {Promise} Promise object with the created post.
+ */
+export const createPost = ({ title, body, author, category }) => {
+  const data = {
+    id: generateUuid().substr(-12),
+    timestamp: new Date(),
+    title,
+    body,
+    author,
+    category
+  }
+
+  return fetch(`${api}/posts`, {
     method: 'POST',
     headers: {
       ...headers,

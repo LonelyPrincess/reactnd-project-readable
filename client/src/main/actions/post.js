@@ -8,6 +8,7 @@ export const UPDATE_POST_SCORE = 'UPDATE_POST_SCORE';
 export const SORT_POST_LIST = 'SORT_POST_LIST';
 export const FILTER_POSTS_BY_CATEGORY = 'FILTER_POSTS_BY_CATEGORY';
 export const FETCH_POST_DATA = 'FETCH_POST_DATA';
+export const CREATE_POST = 'CREATE_POST';
 
 /* --- Action creators --- */
 export function fetchPosts () {
@@ -53,5 +54,12 @@ export function fetchPostData ({ postId }) {
     FETCH_POST_DATA,
     PostsAPI.get(postId),
     { postId }
+  );
+}
+
+export function createPost ({ title, body, author, category }) {
+  return createAsyncAction(
+    CREATE_POST,
+    PostsAPI.createPost({ title, body, author, category })
   );
 }

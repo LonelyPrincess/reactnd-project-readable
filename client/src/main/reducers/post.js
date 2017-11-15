@@ -4,7 +4,8 @@ import {
   UPDATE_POST_SCORE,
   SORT_POST_LIST,
   FILTER_POSTS_BY_CATEGORY,
-  FETCH_POST_DATA
+  FETCH_POST_DATA,
+  CREATE_POST
 } from '../actions/post';
 
 /* --- Posts reducer --- */
@@ -51,6 +52,9 @@ function posts (state = initialPostState, action) {
       if (action.status === 'success') {
         updatedState.push(action.response);
       }
+      break;
+    case CREATE_POST:
+      console.log(`Created post with id ${action.response.id}`);
       break;
     default:
       console.debug(`<PostReducer> Unknown action ${action.type}`);
