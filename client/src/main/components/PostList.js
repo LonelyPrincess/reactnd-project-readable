@@ -54,7 +54,7 @@ function mapDispatchToProps(dispatch, ownProps) {
   return {
     actions: {
       fetchPosts: () => dispatch(PostActions.fetchPosts()),
-      fetchPostsFromCategory: (category) => dispatch(PostActions.filterPostsBy({ category }))
+      fetchPostsFromCategory: (category) => dispatch(PostActions.fetchPostsFromCategory({ category }))
     }
   };
 }
