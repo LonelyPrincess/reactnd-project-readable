@@ -29,6 +29,11 @@ class PostDetails extends Component {
       );
     }
 
+    if (post.id !== this.props.postId) {
+      console.log("Still loading...");
+      return null;
+    }
+
     return (
       <div className="post-details">
         <PostListItem post={post} />
