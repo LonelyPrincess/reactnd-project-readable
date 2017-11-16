@@ -132,7 +132,7 @@ export const postComment = (post, comment) => {
 export const createPost = ({ title, body, author, category }) => {
   const data = {
     id: generateUuid().substr(-12),
-    timestamp: new Date(),
+    timestamp: new Date().getTime(),
     title,
     body,
     author,
