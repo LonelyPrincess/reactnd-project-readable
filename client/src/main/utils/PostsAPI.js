@@ -148,3 +148,20 @@ export const createPost = ({ title, body, author, category }) => {
     body: JSON.stringify(data)
   }).then(res => res.json());
 };
+
+/**
+ * Update score for an existing comment.
+ * @param {Object} comment - Post to update.
+ * @param {string} option - Type of vote to apply (upvote or downvote).
+ * @returns {Promise} Promise object with updated comment.
+ */
+export const updateCommentScore = (comment, option) => {
+  return fetch(`${api}/comments/${comment.id}`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ option })
+  }).then(res => res.json());
+};

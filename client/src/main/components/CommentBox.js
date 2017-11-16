@@ -22,12 +22,21 @@ class CommentBox extends Component {
   // TODO: move individual comment to new component
   // TODO: add controls to modify, edit or delete comments
   render() {
+    const { actions } = this.props;
+
     return (
       <div className="comment-box">
         <h3>Comments ({this.props.comments.length})</h3>
         {this.props.comments.map((comment) => (
           <div className="comment" key={comment.id}>
             {comment.body}
+            <div className="actions">
+              <button onClick={() => actions.updateCommentScore(comment, 'upVote')}><i className="fa fa-thumbs-o-up"></i></button>
+              <button onClick={() => actions.updateCommentScore(comment, 'downVote')}><i className="fa fa-thumbs-o-down"></i></button>
+              <button><i className="fa fa-pencil"></i></button>
+              <button><i className="fa fa-trash"></i></button>
+            </div>
+            <p>Comment score: {comment.voteScore}</p>
             <small>Posted by <em>{comment.author}</em> on {new Date(comment.timestamp).toLocaleString()}</small>
           </div>
         ))}
@@ -53,7 +62,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
-      fetchCommentsForPost: (post) => dispatch(CommentActions.fetchCommentsForPost({ post }))
+      fetchCommentsForPost: (post) => dispatch(CommentActions.fetchCommentsForPost({ post })),
+      updateCommentScore: (comment, voteType) => dispatch(CommentActions.updateCommentScore({ comment, voteType }))
     }
   };
 }
