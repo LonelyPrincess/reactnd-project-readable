@@ -29,9 +29,10 @@ function PostListItem (props) {
       <main className="post-body">{post.body}</main>
 
       <div className="actions">
-        <button onClick={() => actions.updatePostScore(post, 'upVote')}>Upvote</button>
-        <button onClick={() => actions.updatePostScore(post, 'downVote')}>Downvote</button>
-        <button onClick={() => actions.deletePost(post)}>Delete</button>
+        <button onClick={() => actions.updatePostScore(post, 'upVote')}><i className="fa fa-thumbs-o-up"></i> Upvote</button>
+        <button onClick={() => actions.updatePostScore(post, 'downVote')}><i className="fa fa-thumbs-o-down"></i> Downvote</button>
+        <button><i className="fa fa-pencil"></i> Edit</button>
+        <button onClick={() => actions.deletePost(post)}><i className="fa fa-trash"></i> Delete</button>
       </div>
     </article>
   );
