@@ -32,7 +32,7 @@ class CategoryList extends Component {
 
 function mapStateToProps(state) {
   return {
-    categories: state.categoryReducer
+    categories: state.categoryReducer.categories
   };
 }
 

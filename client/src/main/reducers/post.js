@@ -10,6 +10,8 @@ import {
 
 /* --- Posts reducer --- */
 
+// TODO: we should have post list and individual posts being edited / viewed in different properties or stores
+
 // Default initial state
 const initialPostState = [];
 
