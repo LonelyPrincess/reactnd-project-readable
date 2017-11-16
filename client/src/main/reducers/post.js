@@ -55,6 +55,10 @@ function posts (state = initialPostState, action) {
       break;
     case CREATE_POST:
       console.log(`Created post with id ${action.response.id}`);
+      updatedState = [];
+      if (action.status === 'success') {
+        updatedState.push(action.response);
+      }
       break;
     default:
       console.debug(`<PostReducer> Unknown action ${action.type}`);

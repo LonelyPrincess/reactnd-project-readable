@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import * as PostActions from '../actions/post';
 import * as CategoryActions from '../actions/category';
@@ -29,22 +30,12 @@ class PostForm extends Component {
     });
   }
 
-  resetFields = () => {
-    this.setState({
-      title: '',
-      body: '',
-      author: '',
-      category: ''
-    });
-  }
-
   savePost = (event) => {
     event.preventDefault();
-    this.props.actions.createPost(this.state);
+    this.props.actions.createPost(this.state)
+      .then(() => this.props.history.push(`/post/${this.props.post.id}`));
 
-    // TODO: check if action ended up in error or success
-    // if success, redirect to new post details
-    this.resetFields();
+    // TODO: check if action ended up in error: if so, don't redirect
   };
 
   render () {
@@ -84,6 +75,7 @@ PostForm.propTypes = {
 
 function mapStateToProps(state) {
   return {
+    post: state.postReducer[0],
     categories: state.categoryReducer
   };
 }
@@ -97,4 +89,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostForm);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostForm));

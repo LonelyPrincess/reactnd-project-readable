@@ -20,7 +20,7 @@ export function createAsyncAction (actionType, ajaxPromise, { status = null, res
     }
 
     return (dispatch) => {
-      ajaxPromise
+      return ajaxPromise
         .then((response) => {
           let resStatus = response.error ? 'error' : 'success';
           dispatch(createAsyncAction(actionType, ajaxPromise, { status: resStatus, response, ...data }));
