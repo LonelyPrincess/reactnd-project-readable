@@ -15,6 +15,11 @@ import * as CommentActions from '../actions/comment';
  */
 class CommentBox extends Component {
 
+  // TODO: move to redux store?
+  state = {
+    selectedComment: null
+  };
+
   componentWillMount() {
     this.props.actions.fetchCommentsForPost(this.props.post);
   }
@@ -37,7 +42,7 @@ class CommentBox extends Component {
                 <button onClick={() => actions.updateCommentScore(comment, 'upVote')}><i className="fa fa-thumbs-o-up"></i></button>
               </div>
               <div className="actions">
-                <button><i className="fa fa-pencil"></i></button>
+                <button onClick={() => this.setState({ selectedComment: comment })}><i className="fa fa-pencil"></i></button>
                 <button onClick={() => actions.deleteComment(comment)}><i className="fa fa-trash"></i></button>
               </div>
             </div>
@@ -50,7 +55,7 @@ class CommentBox extends Component {
 
         { /* Comment form */ }
         <small className="stats">Wanna share your thoughts?</small>
-        <CommentForm post={this.props.post} />
+        <CommentForm post={this.props.post} comment={this.state.selectedComment} />
       </div>
     );
   }

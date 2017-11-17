@@ -2,7 +2,8 @@ import {
   FETCH_COMMENTS_FOR_POST,
   POST_NEW_COMMENT,
   UPDATE_COMMENT_SCORE,
-  DELETE_COMMENT
+  DELETE_COMMENT,
+  EDIT_COMMENT
 } from '../actions/comment';
 
 /* --- Categories reducer --- */
@@ -15,6 +16,8 @@ function comments (state = initialState, action) {
 
   let updatedState = state.slice();
 
+  let commentIndex;
+
   switch (action.type) {
     case FETCH_COMMENTS_FOR_POST:
       updatedState = action.status === 'success' ? action.response: [];
@@ -26,7 +29,7 @@ function comments (state = initialState, action) {
       break;
     case UPDATE_COMMENT_SCORE:
       console.log(`Updating score for comment ${action.response.id}`);
-      let commentIndex = updatedState.findIndex(item => item.id === action.response.id);
+      commentIndex = updatedState.findIndex(item => item.id === action.response.id);
       updatedState[commentIndex] = {
         ...updatedState[commentIndex],
         voteScore: action.response.voteScore
@@ -37,6 +40,13 @@ function comments (state = initialState, action) {
       console.log(`Comment ${action.response.id} removed`);
       updatedState = updatedState
         .filter((comment) => comment.id !== action.response.id);
+      break;
+    case EDIT_COMMENT:
+      console.log(`Comment ${action.response.id} updated`);
+      commentIndex = updatedState.findIndex(item => item.id === action.response.id);
+      updatedState[commentIndex] = {
+        ...action.response
+      };
       break;
     default:
       console.debug(`<CommentReducer> Unknown action ${action.type}`);

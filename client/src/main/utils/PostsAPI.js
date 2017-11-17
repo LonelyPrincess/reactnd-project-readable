@@ -150,6 +150,25 @@ export const createPost = ({ title, body, author, category }) => {
 };
 
 /**
+ * Edit data for an existing post.
+ * @param {Object} post - Post to modify.
+ * @returns {Promise} Promise object with updated post.
+ */
+export const editPost = (post) => {
+  return fetch(`${api}/posts/${post.id}`, {
+    method: 'PUT',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      title: post.title,
+      body: post.body
+    })
+  }).then(res => res.json());
+};
+
+/**
  * Update score for an existing comment.
  * @param {Object} comment - Post to update.
  * @param {string} option - Type of vote to apply (upvote or downvote).
@@ -175,5 +194,23 @@ export const deleteComment = (comment) => {
   return fetch(`${api}/comments/${comment.id}`, {
     method: 'DELETE',
     headers
+  }).then(res => res.json());
+};
+
+/**
+ * Edit data for an existing comment.
+ * @param {Object} comment - Comment to edit.
+ * @returns {Promise} Promise object with edited comment.
+ */
+export const editComment = (comment) => {
+  return fetch(`${api}/comments/${comment.id}`, {
+    method: 'PUT',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      body: comment.body
+    })
   }).then(res => res.json());
 };

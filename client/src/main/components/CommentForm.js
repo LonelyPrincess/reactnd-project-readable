@@ -17,40 +17,58 @@ class CommentForm extends Component {
 
   state = {
     author: '',
-    message: ''
+    body: '',
+    editMode: false
   }
 
-  createComment = (event) => {
-    event.preventDefault();
+  componentWillReceiveProps ({ comment }) {
+    if (comment) {
+      this.setState({
+        author: comment.author,
+        body: comment.body,
+        editMode: true
+      });
+    }
+  }
 
-    const { actions, post } = this.props;
-    actions.createComment(post, {
-      author: this.state.author,
-      body: this.state.message
-    });
-
+  resetForm = () => {
     this.setState({
       author: '',
-      message: ''
+      body: '',
+      editMode: false
     });
+  }
+
+  saveComment = (event) => {
+    event.preventDefault();
+
+    const { actions, post, comment } = this.props;
+
+    if (this.state.editMode) {
+      actions.editComment({ ...comment, ...this.state })
+        .then(this.resetForm);
+    } else {
+      actions.createComment(post, this.state)
+        .then(this.resetForm);
+    }
   };
 
   render () {
     return (
-      <form onSubmit={this.createComment}>
+      <form onSubmit={this.saveComment}>
           <label htmlFor="comment-author">Author</label>
           <input name="comment-author" value={this.state.author} required
-            onChange={(event) => this.setState({ author: event.target.value })} />
+            onChange={(event) => this.setState({ author: event.target.value })}
+            readOnly={this.state.editMode} />
 
           <label htmlFor="comment-body">Message</label>
-          <textarea name="comment-body" value={this.state.message} required
-            onChange={(event) => this.setState({ message: event.target.value })}></textarea>
+          <textarea name="comment-body" value={this.state.body} required
+            onChange={(event) => this.setState({ body: event.target.value })}></textarea>
 
-          <button type="submit">Post comment</button>
+          <button type="submit">{this.state.editMode ? 'Update' : 'Post'} comment</button>
       </form>
     );
   }
-
 }
 
 CommentForm.propTypes = {
@@ -61,7 +79,8 @@ CommentForm.propTypes = {
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
-      createComment: (post, comment) => dispatch(CommentActions.postNewComment({ post, comment }))
+      createComment: (post, comment) => dispatch(CommentActions.postNewComment({ post, comment })),
+      editComment: (comment) => dispatch(CommentActions.editComment({ comment }))
     }
   };
 }
