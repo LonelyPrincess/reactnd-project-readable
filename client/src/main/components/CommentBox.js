@@ -33,12 +33,12 @@ class CommentBox extends Component {
             <div className="comment-score-container">
               <div className="actions">
                 <button onClick={() => actions.updateCommentScore(comment, 'downVote')}><i className="fa fa-thumbs-o-down"></i></button>
-                <div className={`score ${(comment.voteScore > 0 && 'positive') || (comment.voteScore < 0 && 'negative')}`}>{comment.voteScore}</div>
+                <div className="score">{comment.voteScore}</div>
                 <button onClick={() => actions.updateCommentScore(comment, 'upVote')}><i className="fa fa-thumbs-o-up"></i></button>
               </div>
               <div className="actions">
                 <button><i className="fa fa-pencil"></i></button>
-                <button><i className="fa fa-trash"></i></button>
+                <button onClick={() => actions.deleteComment(comment)}><i className="fa fa-trash"></i></button>
               </div>
             </div>
 
@@ -70,7 +70,8 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       fetchCommentsForPost: (post) => dispatch(CommentActions.fetchCommentsForPost({ post })),
-      updateCommentScore: (comment, voteType) => dispatch(CommentActions.updateCommentScore({ comment, voteType }))
+      updateCommentScore: (comment, voteType) => dispatch(CommentActions.updateCommentScore({ comment, voteType })),
+      deleteComment: (comment) => dispatch(CommentActions.deleteComment({ comment }))
     }
   };
 }

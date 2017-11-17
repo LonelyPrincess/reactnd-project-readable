@@ -371,27 +371,15 @@ form button[type='submit'] {
 }
 
 .comment-score-container .score {
-    border: 1px solid grey;
+    border: 1px solid #de212e;
     padding: .5em;
     width: 4em;
     text-align: center;
     color: white;
-    background: grey;
+    background: #de212e;
     border-radius: 5px;
     margin: 0 .5em 0 0;
     display: inline-block;
-}
-
-.comment-score-container .score.positive {
-    /*background: #4CAF50;*/
-    background: green;
-    border-color: green;
-}
-
-.comment-score-container .score.negative {
-    /*background: #F44336;*/
-    background: #de212e;
-    border-color: #de212e;
 }
 
 .comment-score-container i.fa {

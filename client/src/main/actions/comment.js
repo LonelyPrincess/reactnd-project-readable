@@ -5,6 +5,7 @@ import { createAsyncAction } from '../utils/ActionHelper';
 export const FETCH_COMMENTS_FOR_POST = 'FETCH_COMMENTS_FOR_POST';
 export const POST_NEW_COMMENT = 'POST_NEW_COMMENT';
 export const UPDATE_COMMENT_SCORE = 'UPDATE_COMMENT_SCORE';
+export const DELETE_COMMENT = 'DELETE_COMMENT';
 
 /* --- Action creators --- */
 export function fetchCommentsForPost ({ post }) {
@@ -27,5 +28,12 @@ export function updateCommentScore ({ comment, voteType }) {
   return createAsyncAction(
     UPDATE_COMMENT_SCORE,
     PostsAPI.updateCommentScore(comment, voteType)
+  );
+}
+
+export function deleteComment ({ comment }) {
+  return createAsyncAction(
+    DELETE_COMMENT,
+    PostsAPI.deleteComment(comment)
   );
 }
