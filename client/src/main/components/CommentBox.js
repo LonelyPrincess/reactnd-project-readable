@@ -29,20 +29,27 @@ class CommentBox extends Component {
         <h3>Comments ({this.props.comments.length})</h3>
         {this.props.comments.map((comment) => (
           <div className="comment" key={comment.id}>
-            {comment.body}
-            <div className="actions">
-              <button onClick={() => actions.updateCommentScore(comment, 'upVote')}><i className="fa fa-thumbs-o-up"></i></button>
-              <button onClick={() => actions.updateCommentScore(comment, 'downVote')}><i className="fa fa-thumbs-o-down"></i></button>
-              <button><i className="fa fa-pencil"></i></button>
-              <button><i className="fa fa-trash"></i></button>
+
+            <div className="comment-score-container">
+              <div className="actions">
+                <button onClick={() => actions.updateCommentScore(comment, 'downVote')}><i className="fa fa-thumbs-o-down"></i></button>
+                <div className={`score ${(comment.voteScore > 0 && 'positive') || (comment.voteScore < 0 && 'negative')}`}>{comment.voteScore}</div>
+                <button onClick={() => actions.updateCommentScore(comment, 'upVote')}><i className="fa fa-thumbs-o-up"></i></button>
+              </div>
+              <div className="actions">
+                <button><i className="fa fa-pencil"></i></button>
+                <button><i className="fa fa-trash"></i></button>
+              </div>
             </div>
-            <p>Comment score: {comment.voteScore}</p>
+
+            <div className="body">{comment.body}</div>
+
             <small>Posted by <em>{comment.author}</em> on {new Date(comment.timestamp).toLocaleString()}</small>
           </div>
         ))}
 
         { /* Comment form */ }
-        <p>Wanna share your thoughts?</p>
+        <small className="stats">Wanna share your thoughts?</small>
         <CommentForm post={this.props.post} />
       </div>
     );

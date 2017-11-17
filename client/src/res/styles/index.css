@@ -350,3 +350,55 @@ form button[type='submit'] {
 .comment:nth-child(odd), .comment:nth-child(odd)::after {
     background: #fff5eb;
 }
+
+.comment-score-container {
+    display: flex;
+    align-items: center;
+    /* margin-bottom: 1.5em; */
+    justify-content: space-between;
+}
+
+.comment-score-container .actions {
+    margin: 0;
+}
+
+.actions button:last-child {
+    margin: 0;
+}
+
+.comment-score-container * {
+    font-size: .8em;
+}
+
+.comment-score-container .score {
+    border: 1px solid grey;
+    padding: .5em;
+    width: 4em;
+    text-align: center;
+    color: white;
+    background: grey;
+    border-radius: 5px;
+    margin: 0 .5em 0 0;
+    display: inline-block;
+}
+
+.comment-score-container .score.positive {
+    /*background: #4CAF50;*/
+    background: green;
+    border-color: green;
+}
+
+.comment-score-container .score.negative {
+    /*background: #F44336;*/
+    background: #de212e;
+    border-color: #de212e;
+}
+
+.comment-score-container i.fa {
+    font-size: 1.25em;
+}
+
+.comment .body {
+    margin: 1em 0;
+    text-align: justify;
+}
