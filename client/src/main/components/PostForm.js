@@ -26,7 +26,7 @@ class PostForm extends Component {
   // TODO: if editing, set post
   componentWillMount () {
     this.setState({
-      category: this.props.category
+      category: this.props.category || ''
     });
   }
 
@@ -52,6 +52,7 @@ class PostForm extends Component {
           <label htmlFor="category">Category</label>
           <select name="category" value={this.state.category} required
             onChange={(event) => this.setState({ category: event.target.value })}>
+            <option className="placeholder" value="" disabled>Choose one</option>
             {this.props.categories.map((category) => (
               <option key={category.path} value={category.path}>{category.name}</option>
             ))}
