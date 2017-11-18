@@ -30,13 +30,18 @@ class App extends Component {
               <CategoryList />
             </section>
 
-            <section className="side-block">
-              <h1>Sort by</h1>
-              <ul>
-                <li><a onClick={() => this.sortPostsBy('timestamp')}>Date</a></li>
-                <li><a onClick={() => this.sortPostsBy('voteScore')}>Score</a></li>
-              </ul>
-            </section>
+            { /* Show sort options only in post list pages */ }
+            {["/", "/category/:category"].map(path => (
+              <Route key={path} path={path} exact render={() => (
+                <section className="side-block">
+                  <h1>Sort by</h1>
+                  <ul>
+                    <li><a onClick={() => this.sortPostsBy('timestamp')}>Date</a></li>
+                    <li><a onClick={() => this.sortPostsBy('voteScore')}>Score</a></li>
+                  </ul>
+                </section>
+              )} />
+            ))}
 
             <section className="side-block">
               <h1>Readable</h1>
