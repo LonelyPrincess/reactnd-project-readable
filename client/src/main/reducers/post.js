@@ -101,7 +101,8 @@ export function activePostReducer (state = null, action) {
   switch (action.type) {
     case CREATE_POST:
     case FETCH_POST_DATA:
-     return (action.status === 'success') ? action.response : null;
+    case UPDATE_POST_SCORE:
+      return (action.status === 'success') ? action.response : null;
     case SET_ACTIVE_POST:
       return action.post;
     case UNSET_ACTIVE_POST:
