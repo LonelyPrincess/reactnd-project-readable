@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import * as PostActions from '../actions/post';
 
@@ -17,6 +17,7 @@ function PostListItem (props) {
 
   const { post, actions } = props;
 
+  // TODO: post details shouldn't use this!!! edit and remove buttons should only appear in details
   return (
     <article className="post">
       <div className={`score-box ${(post.voteScore > 0 && 'positive') || (post.voteScore < 0 && 'negative')}`}>
@@ -32,7 +33,10 @@ function PostListItem (props) {
         <button onClick={() => actions.updatePostScore(post, 'upVote')}><i className="fa fa-thumbs-o-up"></i> Upvote</button>
         <button onClick={() => actions.updatePostScore(post, 'downVote')}><i className="fa fa-thumbs-o-down"></i> Downvote</button>
         <button><i className="fa fa-pencil"></i> Edit</button>
-        <button onClick={() => actions.deletePost(post)}><i className="fa fa-trash"></i> Delete</button>
+        <button onClick={() => {
+          actions.deletePost(post)
+            .then(props.history.push(`/`));
+        }}><i className="fa fa-trash"></i> Delete</button>
       </div>
     </article>
   );
@@ -51,4 +55,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(PostListItem);
+export default withRouter(connect(null, mapDispatchToProps)(PostListItem));
