@@ -17,6 +17,9 @@ function PostListItem (props) {
 
   const { post, actions } = props;
 
+  const MAX_LENGTH = 500;
+  const postIsTooLong = post.body.length > MAX_LENGTH;
+
   return (
     <article className="post">
       <div className={`score-box ${(post.voteScore > 0 && 'positive') || (post.voteScore < 0 && 'negative')}`}>
@@ -26,7 +29,16 @@ function PostListItem (props) {
 
       <Link to={`/post/${post.id}`}><h2>{post.title}</h2></Link>
       <small>Posted by <em>{post.author}</em> on {new Date(post.timestamp).toLocaleString()} · {post.commentCount} comments</small>
-      <main className="post-body">{post.body}</main>
+      <main className="post-body">
+        {postIsTooLong ? `${post.body.substring(0, MAX_LENGTH)}...` : post.body }
+        {postIsTooLong && (
+          <p>
+            <Link to={`/post/${post.id}`}>
+              <i className="fa fa-plus-circle"></i> Read more
+            </Link>
+          </p>
+        )}
+      </main>
 
       <div className="actions">
         <button onClick={() => actions.updatePostScore(post, 'upVote')}><i className="fa fa-thumbs-o-up"></i> Upvote</button>
