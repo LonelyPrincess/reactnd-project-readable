@@ -20,20 +20,46 @@ class PostForm extends Component {
     title: '',
     body: '',
     author: '',
-    category: ''
-  }
+    category: '',
+    editMode: false
+  };
 
   // TODO: if editing, set post
   componentWillMount () {
+
+    // TODO: this may be in redux state instead?
     this.setState({
       category: this.props.category || ''
     });
+
+    if (this.props.postId) {
+      this.props.actions.fetchPost(this.props.postId);
+    }
+  }
+
+  componentWillReceiveProps (newProps) {
+    const post = newProps.post;
+    if (post) {
+      this.setState({
+        title: post.title,
+        body: post.body,
+        author: post.author,
+        category: post.category,
+        editMode: true
+      });
+    }
   }
 
   savePost = (event) => {
     event.preventDefault();
-    this.props.actions.createPost(this.state)
-      .then(() => this.props.history.push(`/post/${this.props.post.id}`));
+
+    if (this.state.editMode) {
+      this.props.actions.editPost({ ...this.props.post, ...this.state })
+        .then(() => this.props.history.push(`/post/${this.props.post.id}`));
+    } else {
+      this.props.actions.createPost(this.state)
+        .then(() => this.props.history.push(`/post/${this.props.post.id}`));
+    }
 
     // TODO: check if action ended up in error: if so, don't redirect
   };
@@ -46,11 +72,11 @@ class PostForm extends Component {
             onChange={(event) => this.setState({ title: event.target.value })} />
 
           <label htmlFor="author">Author</label>
-          <input name="author" value={this.state.author} required
+          <input name="author" value={this.state.author} required readOnly={this.state.editMode}
             onChange={(event) => this.setState({ author: event.target.value })} />
 
           <label htmlFor="category">Category</label>
-          <select name="category" value={this.state.category} required
+          <select name="category" value={this.state.category} required disabled={this.state.editMode}
             onChange={(event) => this.setState({ category: event.target.value })}>
             <option className="placeholder" value="" disabled>Choose one</option>
             {this.props.categories.map((category) => (
@@ -62,7 +88,7 @@ class PostForm extends Component {
           <textarea name="body" value={this.state.body} required
             onChange={(event) => this.setState({ body: event.target.value })}></textarea>
 
-          <button type="submit">Create post</button>
+          <button type="submit">{this.state.editMode ? 'Update' : 'Create'} post</button>
       </form>
     );
   }
@@ -76,7 +102,7 @@ PostForm.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    post: state.postReducer[0],
+    post: state.activePostReducer,
     categories: state.categoryReducer.categories
   };
 }
@@ -85,7 +111,9 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       fetchCategories: () => dispatch(CategoryActions.fetchCategories()),
-      createPost: (data) => dispatch(PostActions.createPost(data))
+      createPost: (data) => dispatch(PostActions.createPost(data)),
+      fetchPost: (postId) => dispatch(PostActions.fetchPostData({ postId })),
+      editPost: (data) => dispatch(PostActions.editPost(data))
     }
   };
 }

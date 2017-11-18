@@ -5,7 +5,10 @@ import {
   SORT_POST_LIST,
   FILTER_POSTS_BY_CATEGORY,
   FETCH_POST_DATA,
-  CREATE_POST
+  CREATE_POST,
+  EDIT_POST,
+  SET_ACTIVE_POST,
+  UNSET_ACTIVE_POST
 } from '../actions/post';
 
 /* --- Posts reducer --- */
@@ -57,10 +60,17 @@ function posts (state = initialPostState, action) {
       break;
     case CREATE_POST:
       console.log(`Created post with id ${action.response.id}`);
-      updatedState = [];
+      postIndex = [];
       if (action.status === 'success') {
         updatedState.push(action.response);
       }
+      break;
+    case EDIT_POST:
+      console.log(`Post ${action.response.id} updated`);
+      postIndex = updatedState.findIndex(item => item.id === action.response.id);
+      updatedState[postIndex] = {
+        ...action.response
+      };
       break;
     default:
       console.debug(`<PostReducer> Unknown action ${action.type}`);
@@ -85,3 +95,20 @@ function sortPostsByProperty (posts, property) {
 }
 
 export default posts;
+
+export function activePostReducer (state = null, action) {
+
+  switch (action.type) {
+    case CREATE_POST:
+    case FETCH_POST_DATA:
+     return (action.status === 'success') ? action.response : null;
+    case SET_ACTIVE_POST:
+      return action.post;
+    case UNSET_ACTIVE_POST:
+      return null;
+    default:
+      console.debug(`<ActivePostReducer> Unknown action ${action.type}`);
+  }
+
+  return state;
+}

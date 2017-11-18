@@ -32,7 +32,7 @@ function PostListItem (props) {
       <div className="actions">
         <button onClick={() => actions.updatePostScore(post, 'upVote')}><i className="fa fa-thumbs-o-up"></i> Upvote</button>
         <button onClick={() => actions.updatePostScore(post, 'downVote')}><i className="fa fa-thumbs-o-down"></i> Downvote</button>
-        <button><i className="fa fa-pencil"></i> Edit</button>
+        <button onClick={() => props.history.push(`/post/${post.id}/edit`)}><i className="fa fa-pencil"></i> Edit</button>
         <button onClick={() => {
           actions.deletePost(post)
             .then(props.history.push(`/`));
