@@ -24,6 +24,11 @@ class CommentBox extends Component {
     this.props.actions.fetchCommentsForPost(this.props.post);
   }
 
+  goToEditForm = (comment) => {
+    this.setState({ selectedComment: comment });
+    this.refs.commentFormTitle.scrollIntoView();
+  };
+
   // TODO: move individual comment to new component
   // TODO: add controls to modify, edit or delete comments
   render() {
@@ -42,7 +47,7 @@ class CommentBox extends Component {
                 <button onClick={() => actions.updateCommentScore(comment, 'upVote')}><i className="fa fa-thumbs-o-up"></i></button>
               </div>
               <div className="actions">
-                <button onClick={() => this.setState({ selectedComment: comment })}><i className="fa fa-pencil"></i></button>
+                <button onClick={() => this.goToEditForm(comment)}><i className="fa fa-pencil"></i></button>
                 <button onClick={() => actions.deleteComment(comment)}><i className="fa fa-trash"></i></button>
               </div>
             </div>
@@ -54,7 +59,7 @@ class CommentBox extends Component {
         ))}
 
         { /* Comment form */ }
-        <small className="stats">Wanna share your thoughts?</small>
+        <small ref="commentFormTitle" className="stats">Wanna share your thoughts?</small>
         <CommentForm post={this.props.post} comment={this.state.selectedComment} />
       </div>
     );
