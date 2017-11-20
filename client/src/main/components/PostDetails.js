@@ -46,14 +46,19 @@ class PostDetails extends Component {
           <small>Posted by <em>{post.author}</em> on {new Date(post.timestamp).toLocaleString()}</small>
           <main className="post-body">{post.body}</main>
 
-          <div className="actions">
-            <button onClick={() => actions.updatePostScore(post, 'upVote')}><i className="fa fa-thumbs-o-up"></i> Upvote</button>
-            <button onClick={() => actions.updatePostScore(post, 'downVote')}><i className="fa fa-thumbs-o-down"></i> Downvote</button>
-            <button onClick={() => this.props.history.push(`/post/${post.id}/edit`)}><i className="fa fa-pencil"></i> Edit</button>
-            <button onClick={() => {
-              actions.deletePost(post)
-                .then(this.props.history.push(`/`));
-            }}><i className="fa fa-trash"></i> Delete</button>
+          <div className="button-container">
+            <div className="info">
+              <button disabled><i className="fa fa-tag"></i> {post.category}</button>
+            </div>
+            <div className="actions">
+              <button onClick={() => actions.updatePostScore(post, 'upVote')}><i className="fa fa-thumbs-o-up"></i> Upvote</button>
+              <button onClick={() => actions.updatePostScore(post, 'downVote')}><i className="fa fa-thumbs-o-down"></i> Downvote</button>
+              <button onClick={() => this.props.history.push(`/post/${post.id}/edit`)}><i className="fa fa-pencil"></i> Edit</button>
+              <button onClick={() => {
+                actions.deletePost(post)
+                  .then(this.props.history.push(`/`));
+              }}><i className="fa fa-trash"></i> Delete</button>
+            </div>
           </div>
         </article>
 

@@ -28,7 +28,7 @@ function PostListItem (props) {
       </div>
 
       <Link to={`/post/${post.id}`}><h2>{post.title}</h2></Link>
-      <small>Posted by <em>{post.author}</em> on {new Date(post.timestamp).toLocaleString()} · {post.commentCount} comments</small>
+      <small>Posted by <em>{post.author}</em> on {new Date(post.timestamp).toLocaleString()}</small>
       <main className="post-body">
         {postIsTooLong ? `${post.body.substring(0, MAX_LENGTH)}...` : post.body }
         {postIsTooLong && (
@@ -40,9 +40,15 @@ function PostListItem (props) {
         )}
       </main>
 
-      <div className="actions">
-        <button onClick={() => actions.updatePostScore(post, 'upVote')}><i className="fa fa-thumbs-o-up"></i> Upvote</button>
-        <button onClick={() => actions.updatePostScore(post, 'downVote')}><i className="fa fa-thumbs-o-down"></i> Downvote</button>
+      <div className="button-container">
+        <div className="info">
+          <button disabled><i className="fa fa-tag"></i> {post.category}</button>
+          <button disabled><i className="fa fa-comments"></i> {post.commentCount} comments</button>
+        </div>
+        <div className="actions">
+          <button onClick={() => actions.updatePostScore(post, 'upVote')}><i className="fa fa-thumbs-o-up"></i> Upvote</button>
+          <button onClick={() => actions.updatePostScore(post, 'downVote')}><i className="fa fa-thumbs-o-down"></i> Downvote</button>
+        </div>
       </div>
     </article>
   );

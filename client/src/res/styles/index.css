@@ -145,7 +145,13 @@ main small {
     padding-top: 0;
 }
 
-.actions button {
+.button-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.button-container button {
     margin-right: .5em;
     border: 1px solid #de212e;
     padding: .5em;
@@ -154,13 +160,38 @@ main small {
     border-radius: 5px;
 }
 
-.actions {
+.button-container button[disabled] {
+    color: white;
+    background: #de212e;
+}
+
+.button-container button:not([disabled]) {
+    cursor: pointer;
+}
+
+.button-container > * {
     text-align: center;
-    margin: 1em;
+    margin: 1em 0;
+}
+
+.comment .button-container button {
+    font-size: 0.7em;
+}
+
+.comment .button-container > * {
+    margin: 0;
+}
+
+.comment .button-container .score {
+    width: 4em;
 }
 
 .comment-box {
     padding: 0 .5em;
+}
+
+.comment-box h3 {
+    margin-top: 1.5em;
 }
 
 .comment small {
@@ -355,7 +386,6 @@ form button[type='submit'] {
 .comment-score-container {
     display: flex;
     align-items: center;
-    /* margin-bottom: 1.5em; */
     justify-content: space-between;
 }
 

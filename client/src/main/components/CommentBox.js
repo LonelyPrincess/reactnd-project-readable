@@ -35,10 +35,10 @@ class CommentBox extends Component {
         {this.props.comments.map((comment) => (
           <div className="comment" key={comment.id}>
 
-            <div className="comment-score-container">
+            <div className="button-container">
               <div className="actions">
                 <button onClick={() => actions.updateCommentScore(comment, 'downVote')}><i className="fa fa-thumbs-o-down"></i></button>
-                <div className="score">{comment.voteScore}</div>
+                <button className="score" disabled>{comment.voteScore}</button>
                 <button onClick={() => actions.updateCommentScore(comment, 'upVote')}><i className="fa fa-thumbs-o-up"></i></button>
               </div>
               <div className="actions">
