@@ -325,6 +325,7 @@ form label {
 
 form textarea {
     min-height: 10em;
+    font-family: Lato, sans-serif;
 }
 
 form input, form textarea, form select {
@@ -344,6 +345,11 @@ form button[type='submit'] {
     font-size: 1em;
     border-radius: 5px;
     text-transform: uppercase;
+}
+
+form > select[disabled], form > input[readonly] {
+    color: gray;
+    border-bottom-color: gray;
 }
 
 /* --- Test styles for comment boxes --- */
