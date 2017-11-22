@@ -53,7 +53,7 @@ class PostDetails extends Component {
             <div className="actions">
               <button onClick={() => actions.updatePostScore(post, 'upVote')}><i className="fa fa-thumbs-o-up"></i> Upvote</button>
               <button onClick={() => actions.updatePostScore(post, 'downVote')}><i className="fa fa-thumbs-o-down"></i> Downvote</button>
-              <button onClick={() => this.props.history.push(`/post/${post.id}/edit`)}><i className="fa fa-pencil"></i> Edit</button>
+              <button onClick={() => this.props.history.push(`/${post.category}/${post.id}/edit`)}><i className="fa fa-pencil"></i> Edit</button>
               <button onClick={() => {
                 actions.deletePost(post)
                   .then(this.props.history.push(`/`));

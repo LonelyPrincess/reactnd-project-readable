@@ -27,13 +27,13 @@ function PostListItem (props) {
         <div className="score">{post.voteScore}</div>
       </div>
 
-      <Link to={`/post/${post.id}`}><h2>{post.title}</h2></Link>
+      <Link to={`/${post.category}/${post.id}`}><h2>{post.title}</h2></Link>
       <small>Posted by <em>{post.author}</em> on {new Date(post.timestamp).toLocaleString()}</small>
       <main className="post-body">
         {postIsTooLong ? `${post.body.substring(0, MAX_LENGTH)}...` : post.body }
         {postIsTooLong && (
           <p>
-            <Link to={`/post/${post.id}`}>
+            <Link to={`/${post.category}/${post.id}`}>
               <i className="fa fa-plus-circle"></i> Read more
             </Link>
           </p>

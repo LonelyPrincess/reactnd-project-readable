@@ -55,10 +55,10 @@ class PostForm extends Component {
 
     if (this.state.editMode) {
       this.props.actions.editPost({ ...this.props.post, ...this.state })
-        .then(() => this.props.history.push(`/post/${this.props.post.id}`));
+        .then(() => this.props.history.push(`/${this.props.post.category}/${this.props.post.id}`));
     } else {
       this.props.actions.createPost(this.state)
-        .then(() => this.props.history.push(`/post/${this.props.post.id}`));
+        .then(() => this.props.history.push(`/${this.props.post.category}/${this.props.post.id}`));
     }
 
     // TODO: check if action ended up in error: if so, don't redirect

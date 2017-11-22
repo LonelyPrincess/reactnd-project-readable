@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, Route, withRouter } from 'react-router-dom';
+import { Switch, Link, Route, withRouter } from 'react-router-dom';
 
 import * as PostActions from './actions/post';
 
@@ -31,7 +31,7 @@ class App extends Component {
             </section>
 
             { /* Show sort options only in post list pages */ }
-            {["/", "/category/:category"].map(path => (
+            {["/", "/:category"].map(path => (
               <Route key={path} path={path} exact render={() => (
                 <section className="side-block">
                   <h1>Sort by</h1>
@@ -53,27 +53,29 @@ class App extends Component {
           </aside>
 
           <main>
-            <Route path="/category/:category" render={({ match, location }) => (
-              <PostList
-                key={location.key}
-                category={match.params.category} />
-            )} />
+            <Switch>
+              <Route path="/" exact component={PostList} />
 
-            <Route path="/" exact component={PostList} />
+              <Route path="/create" exact component={PostForm} />
 
-            <Route path="/post/:postId" exact render={({ match, location }) => (
-              <PostDetails
-                key={location.key}
-                postId={match.params.postId} />
-            )} />
+              <Route path="/:category" exact render={({ match, location }) => (
+                <PostList
+                  key={location.key}
+                  category={match.params.category} />
+              )} />
 
-            <Route path="/post/:postId/edit" render={({ match, location }) => (
-              <PostForm
-                key={location.key}
-                postId={match.params.postId} />
-            )} />
+              <Route path="/:category/:postId" exact render={({ match, location }) => (
+                <PostDetails
+                  key={location.key}
+                  postId={match.params.postId} />
+              )} />
 
-            <Route path="/create" exact component={PostForm} />
+              <Route path="/:category/:postId/edit" render={({ match, location }) => (
+                <PostForm
+                  key={location.key}
+                  postId={match.params.postId} />
+              )} />
+            </Switch>
 
             { this.props.location.pathname !== "/create"
               && <Link to="/create" className="floating-btn"></Link> }
