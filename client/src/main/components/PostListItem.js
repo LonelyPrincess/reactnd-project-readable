@@ -48,6 +48,8 @@ function PostListItem (props) {
         <div className="actions">
           <button onClick={() => actions.updatePostScore(post, 'upVote')}><i className="fa fa-thumbs-o-up"></i> Upvote</button>
           <button onClick={() => actions.updatePostScore(post, 'downVote')}><i className="fa fa-thumbs-o-down"></i> Downvote</button>
+          <Link to={`/${post.category}/${post.id}/edit`}><button><i className="fa fa-pencil"></i> Edit</button></Link>
+          <button onClick={() => actions.deletePost(post)}><i className="fa fa-trash"></i> Delete</button>
         </div>
       </div>
     </article>
@@ -61,6 +63,7 @@ PostListItem.propTypes = {
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
+      deletePost: (post) => dispatch(PostActions.deletePost({ post })),
       updatePostScore: (post, voteType) => dispatch(PostActions.updatePostScore({ post, voteType }))
     }
   };
