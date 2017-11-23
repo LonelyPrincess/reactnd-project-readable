@@ -3,17 +3,17 @@ import {
   DELETE_POST,
   UPDATE_POST_SCORE,
   SORT_POST_LIST,
-  FILTER_POSTS_BY_CATEGORY,
-  FETCH_POST_DATA,
+  FILTER_POSTS_BY_CATEGORY, // TODO: not needed
+  FETCH_POST_DATA,          // TODO: not needed
   CREATE_POST,
   EDIT_POST,
   SET_ACTIVE_POST,
   UNSET_ACTIVE_POST
 } from '../actions/post';
 
-/* --- Posts reducer --- */
+import { sortByObjectProperty } from '../utils/Utils';
 
-// TODO: we should have post list and individual posts being edited / viewed in different properties or stores
+/* --- Posts reducer --- */
 
 // Default initial state
 const initialPostState = [];
@@ -31,7 +31,7 @@ function posts (state = initialPostState, action) {
   switch (action.type) {
     case FETCH_POSTS:
       updatedState = action.status === 'success' ? action.response: [];
-      sortPostsByProperty(updatedState, 'voteScore');
+      sortByObjectProperty(updatedState, 'voteScore');
       break;
     case DELETE_POST:
       postIndex = updatedState.findIndex((item) => item.id === action.response.id);
@@ -45,12 +45,12 @@ function posts (state = initialPostState, action) {
       };
       break;
     case SORT_POST_LIST:
-      sortPostsByProperty(updatedState, action.criteria);
+      sortByObjectProperty(updatedState, action.criteria);
       break;
     case FILTER_POSTS_BY_CATEGORY:
       console.log(`Showing ${action.response.length} posts for category ${action.category}...`);
       updatedState = action.status === 'success' ? action.response: [];
-      sortPostsByProperty(updatedState, 'voteScore');
+      sortByObjectProperty(updatedState, 'voteScore');
       break;
     case FETCH_POST_DATA:
       updatedState = [];
@@ -77,21 +77,6 @@ function posts (state = initialPostState, action) {
   }
 
   return updatedState;
-}
-
-// Sort posts by a certain property (descending order, highest first)
-function sortPostsByProperty (posts, property) {
-  console.log(`Sorting by ${property}...`);
-
-  return posts.sort((a, b) => {
-    if (a[property] > b[property]) {
-      return -1;
-    } else if (a[property] < b[property]) {
-      return 1;
-    } else {
-      return 0;
-    }
-  });
 }
 
 export default posts;

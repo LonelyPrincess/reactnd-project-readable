@@ -6,6 +6,8 @@ import {
   EDIT_COMMENT
 } from '../actions/comment';
 
+import { sortByObjectProperty } from '../utils/Utils';
+
 /* --- Categories reducer --- */
 
 // Default initial state
@@ -21,11 +23,11 @@ function comments (state = initialState, action) {
   switch (action.type) {
     case FETCH_COMMENTS_FOR_POST:
       updatedState = action.status === 'success' ? action.response: [];
-      updatedState.sort(compareScore);
+      updatedState = sortByObjectProperty(updatedState, 'voteScore');
       break;
     case POST_NEW_COMMENT:
       updatedState.push(action.response);
-      updatedState.sort(compareScore);
+      updatedState = sortByObjectProperty(updatedState, 'voteScore');
       break;
     case UPDATE_COMMENT_SCORE:
       console.log(`Updating score for comment ${action.response.id}`);
@@ -34,7 +36,7 @@ function comments (state = initialState, action) {
         ...updatedState[commentIndex],
         voteScore: action.response.voteScore
       };
-      updatedState.sort(compareScore);
+      updatedState = sortByObjectProperty(updatedState, 'voteScore');
       break;
     case DELETE_COMMENT:
       console.log(`Comment ${action.response.id} removed`);
@@ -53,16 +55,6 @@ function comments (state = initialState, action) {
   }
 
   return updatedState;
-}
-
-function compareScore (a, b) {
-  if (a['voteScore'] > b['voteScore']) {
-    return -1;
-  } else if (a['voteScore'] < b['voteScore']) {
-    return 1;
-  } else {
-    return 0;
-  }
 }
 
 export default comments;
