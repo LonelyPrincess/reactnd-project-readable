@@ -1,12 +1,14 @@
 import {
-  FETCH_CATEGORIES
+  FETCH_CATEGORIES,
+  SET_ACTIVE_CATEGORY
 } from '../actions/category';
 
 /* --- Categories reducer --- */
 
 // Default initial state
 const initialState = {
-  categories: [],
+  list: [],
+  active: null,
   isLoading: false,
   expirationDate: null
 };
@@ -32,9 +34,15 @@ function categories (state = initialState, action) {
       } else {
         updatedState = {
           ...updatedState,
-          categories: action.status === 'success' ? action.response.sort() : []
+          list: action.status === 'success' ? action.response.sort() : []
         };
       }
+      break;
+    case SET_ACTIVE_CATEGORY:
+      updatedState = {
+        ...state,
+        active: action.categoryId
+      };
       break;
     default:
       console.debug(`<CategoryReducer> Unknown action ${action.type}`);

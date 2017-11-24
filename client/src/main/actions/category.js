@@ -3,6 +3,7 @@ import { createAsyncAction } from '../utils/ActionHelper';
 
 /* --- Action types --- */
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
+export const SET_ACTIVE_CATEGORY = 'SET_ACTIVE_CATEGORY';
 
 /* --- Action creators --- */
 export function fetchCategories () {
@@ -10,4 +11,11 @@ export function fetchCategories () {
     FETCH_CATEGORIES,
     PostsAPI.getCategories()
   );
+}
+
+export function setActiveCategory ({ categoryId }) {
+  return {
+    type: SET_ACTIVE_CATEGORY,
+    categoryId
+  };
 }

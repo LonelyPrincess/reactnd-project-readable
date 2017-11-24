@@ -17,12 +17,16 @@ class CategoryList extends Component {
   }
 
   render () {
+    const { actions, categories, activeCategory } = this.props;
+
     return (
       <ul>
-        <li><Link to="/">All</Link></li>
-        {this.props.categories.map((category) => (
-          <li key={category.path}>
-            <Link to={`/${category.path}`}>{category.name}</Link>
+        <li className={!activeCategory ? 'active' : ''}>
+          <Link to="/" onClick={() => actions.setActiveCategory(null)}>All</Link>
+        </li>
+        {categories.map((category) => (
+          <li key={category.path} className={category.path === activeCategory ? 'active' : ''}>
+            <Link to={`/${category.path}`} onClick={() => actions.setActiveCategory(category.path)}>{category.name}</Link>
           </li>
         ))}
       </ul>
@@ -32,14 +36,16 @@ class CategoryList extends Component {
 
 function mapStateToProps(state) {
   return {
-    categories: state.categoryReducer.categories
+    categories: state.categoryReducer.list,
+    activeCategory: state.categoryReducer.active
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
-      fetchCategories: () => dispatch(CategoryActions.fetchCategories())
+      fetchCategories: () => dispatch(CategoryActions.fetchCategories()),
+      setActiveCategory: (categoryId) => dispatch(CategoryActions.setActiveCategory({ categoryId }))
     }
   };
 }
