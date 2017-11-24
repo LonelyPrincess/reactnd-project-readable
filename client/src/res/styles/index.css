@@ -352,6 +352,12 @@ form > select[disabled], form > input[readonly] {
     border-bottom-color: gray;
 }
 
+.loader {
+    color: red;
+    text-align: center;
+    padding: 3em 1em;
+}
+
 /* --- Test styles for comment boxes --- */
 
 .comment-list {
