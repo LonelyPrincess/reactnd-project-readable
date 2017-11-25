@@ -8,6 +8,7 @@ import PostList from './components/PostList';
 import PostForm from './components/PostForm';
 import PostDetails from './components/PostDetails';
 import CategoryList from './components/CategoryList';
+import SortOptions from './components/SortOptions';
 
 class App extends Component {
 
@@ -35,10 +36,7 @@ class App extends Component {
               <Route key={path} path={path} exact render={() => (
                 <section className="side-block">
                   <h1>Sort by</h1>
-                  <ul>
-                    <li><a onClick={() => this.sortPostsBy('timestamp')}>Date</a></li>
-                    <li><a onClick={() => this.sortPostsBy('voteScore')}>Score</a></li>
-                  </ul>
+                  <SortOptions />
                 </section>
               )} />
             ))}
@@ -46,8 +44,14 @@ class App extends Component {
             <section className="side-block">
               <h1>Readable</h1>
               <ul>
-                <li><a href="https://es.linkedin.com/in/sara-hern%C3%A1ndez-su%C3%A1rez-167013115" target="_blank" rel="noopener noreferrer">Author</a></li>
-                <li><a href="https://github.com/LonelyPrincess/reactnd-project-readable" target="_blank" rel="noopener noreferrer">Repository</a></li>
+                <li>
+                  <i className="fa fa-fw fa-linkedin"></i>
+                  <a href="https://es.linkedin.com/in/sara-hern%C3%A1ndez-su%C3%A1rez-167013115" target="_blank" rel="noopener noreferrer">Author</a>
+                </li>
+                <li>
+                  <i className="fa fa-fw fa-github"></i>
+                  <a href="https://github.com/LonelyPrincess/reactnd-project-readable" target="_blank" rel="noopener noreferrer">Repository</a>
+                </li>
               </ul>
             </section>
           </aside>

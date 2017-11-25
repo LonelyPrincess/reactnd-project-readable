@@ -22,10 +22,12 @@ class CategoryList extends Component {
     return (
       <ul>
         <li className={!activeCategory ? 'active' : ''}>
+          <i className="fa fa-fw fa-tag"></i>
           <Link to="/" onClick={() => actions.setActiveCategory(null)}>All</Link>
         </li>
         {categories.map((category) => (
           <li key={category.path} className={category.path === activeCategory ? 'active' : ''}>
+            <i className="fa fa-fw fa-tag"></i>
             <Link to={`/${category.path}`} onClick={() => actions.setActiveCategory(category)}>{category.name}</Link>
           </li>
         ))}

@@ -358,6 +358,25 @@ form > select[disabled], form > input[readonly] {
     padding: 3em 1em;
 }
 
+section.side-block {
+    border-radius: 5px;
+}
+
+section.side-block ul {
+    list-style-type: none;
+    padding: 0 1.5em;
+}
+
+section.side-block ul i {
+    color: darksalmon;
+    padding-right: 1.5em;
+}
+
+section.side-block ul .active i {
+    color: #de212e;
+}
+
+
 /* --- Test styles for comment boxes --- */
 
 .comment-list {
