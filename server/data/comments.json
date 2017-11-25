@@ -18,5 +18,15 @@
     "voteScore": -5,
     "deleted": false,
     "parentDeleted": false
+  },
+  "6ef708404db7": {
+    "id": "6ef708404db7",
+    "parentId": "56206e17606d",
+    "timestamp": 1511638781738,
+    "body": "OMG, that was long... and made no sense either, WTF?",
+    "author": "complainer",
+    "voteScore": 0,
+    "deleted": false,
+    "parentDeleted": false
   }
 }
