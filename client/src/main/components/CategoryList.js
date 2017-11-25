@@ -47,7 +47,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       fetchCategories: () => dispatch(CategoryActions.fetchCategories()),
-      setActiveCategory: (category) => dispatch(CategoryActions.setActiveCategory({ category }))
+      setActiveCategory: (category) => dispatch(CategoryActions.setActiveCategory(category ? category.path : null))
     }
   };
 }
