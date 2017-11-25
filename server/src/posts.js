@@ -26,7 +26,7 @@ function get(token, id) {
     const posts = getData(token)
     res(
       posts[id].deleted
-        ? {}
+        ? null
         : posts[id]
     )
   })
