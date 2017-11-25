@@ -29,7 +29,8 @@ class PostForm extends Component {
       this.setState({ editMode: true });
       this.props.actions.fetchPost(this.props.postId)
         .then(this.initializeFormWithPostData);
-    } else {
+      this.props.actions.setActiveCategory(this.props.category);
+      } else {
       this.setState({
         editMode: false,
         category: this.props.activeCategory || ''
@@ -110,7 +111,8 @@ function mapDispatchToProps(dispatch) {
       fetchCategories: () => dispatch(CategoryActions.fetchCategories()),
       createPost: (data) => dispatch(PostActions.createPost(data)),
       fetchPost: (postId) => dispatch(PostActions.fetchPostData({ postId })),
-      editPost: (data) => dispatch(PostActions.editPost(data))
+      editPost: (data) => dispatch(PostActions.editPost(data)),
+      setActiveCategory: (category) => dispatch(CategoryActions.setActiveCategory(category))
     }
   };
 }
