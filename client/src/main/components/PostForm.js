@@ -103,7 +103,7 @@ PostForm.propTypes = {
 function mapStateToProps(state) {
   return {
     post: state.activePostReducer,
-    categories: state.categoryReducer.categories
+    categories: state.categoryReducer.list
   };
 }
 
