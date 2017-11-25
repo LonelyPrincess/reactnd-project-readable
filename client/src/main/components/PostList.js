@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as PostActions from '../actions/post';
@@ -8,18 +7,11 @@ import PostListItem from './PostListItem';
 
 class PostList extends Component {
   componentWillMount() {
-    const { actions, category } = this.props;
-    if (!category) {
-      console.log(`Displaying all posts...`);
-      actions.fetchPosts();
-    } else {
-      console.log(`Displaying posts for category ${category}...`);
-      actions.fetchPostsFromCategory(category);
-    }
+    this.props.actions.fetchPosts();
   }
 
   render() {
-    const { posts, category } = this.props;
+    const { posts, activeCategory } = this.props;
 
     return (
       <div className="post-list">
@@ -27,34 +19,33 @@ class PostList extends Component {
           {posts.length
             ? `Showing ${posts.length} posts `
             : `No posts found `}
-          for <em>{category ? `"${category}"` : `all categories`}</em>
+          for <em>{activeCategory ? `"${activeCategory}"` : `all categories`}</em>
         </small>
 
-        {posts.map((post) => (
-          <PostListItem key={post.id} post={post} />
-        ))}
+        {posts
+          .filter(post => !activeCategory || post.category === activeCategory)
+          .map((post) => (
+            <PostListItem key={post.id} post={post} />
+          )
+        )}
       </div>
     );
   }
 }
 
-PostListItem.propTypes = {
-  category: PropTypes.string
-};
-
 // We transform the state structure as we had it in our reducer
 // as we want it in our component props
 function mapStateToProps(state) {
   return {
-    posts: state.postReducer
+    posts: state.postReducer,
+    activeCategory: state.categoryReducer.active
   };
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
     actions: {
-      fetchPosts: () => dispatch(PostActions.fetchPosts()),
-      fetchPostsFromCategory: (category) => dispatch(PostActions.fetchPostsFromCategory({ category }))
+      fetchPosts: () => dispatch(PostActions.fetchPosts())
     }
   };
 }

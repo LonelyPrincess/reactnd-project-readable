@@ -24,12 +24,11 @@ class PostForm extends Component {
     editMode: false
   };
 
-  // TODO: if editing, set post
   componentWillMount () {
 
-    // TODO: this may be in redux state instead?
+    // If creating, initialize category input with currently selected value
     this.setState({
-      category: this.props.category || ''
+      category: this.props.activeCategory || ''
     });
 
     if (this.props.postId) {
@@ -103,7 +102,8 @@ PostForm.propTypes = {
 function mapStateToProps(state) {
   return {
     post: state.activePostReducer,
-    categories: state.categoryReducer.list
+    categories: state.categoryReducer.list,
+    activeCategory: state.categoryReducer.active
   };
 }
 

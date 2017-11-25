@@ -58,11 +58,7 @@ class App extends Component {
 
               <Route path="/create" exact component={PostForm} />
 
-              <Route path="/:category" exact render={({ match, location }) => (
-                <PostList
-                  key={location.key}
-                  category={match.params.category} />
-              )} />
+              <Route path="/:category" exact component={PostList} />
 
               <Route path="/:category/:postId" exact render={({ match, location }) => (
                 <PostDetails
