@@ -13,9 +13,9 @@ export function fetchCategories () {
   );
 }
 
-export function setActiveCategory ({ categoryId }) {
+export function setActiveCategory ({ category }) {
   return {
     type: SET_ACTIVE_CATEGORY,
-    categoryId
+    categoryId: category ? category.path : null
   };
 }

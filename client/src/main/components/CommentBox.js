@@ -15,22 +15,16 @@ import * as CommentActions from '../actions/comment';
  */
 class CommentBox extends Component {
 
-  // TODO: move to redux store?
-  state = {
-    selectedComment: null
-  };
-
   componentWillMount() {
     this.props.actions.fetchCommentsForPost(this.props.post);
   }
 
   goToEditForm = (comment) => {
-    this.setState({ selectedComment: comment });
+    this.props.actions.setActiveComment(comment);
     this.refs.commentFormTitle.scrollIntoView();
   };
 
   // TODO: move individual comment to new component
-  // TODO: add controls to modify, edit or delete comments
   render() {
     const { actions } = this.props;
 
@@ -60,7 +54,7 @@ class CommentBox extends Component {
 
         { /* Comment form */ }
         <small ref="commentFormTitle" className="stats">Wanna share your thoughts?</small>
-        <CommentForm post={this.props.post} comment={this.state.selectedComment} />
+        <CommentForm post={this.props.post} />
       </div>
     );
   }
@@ -79,6 +73,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
+      setActiveComment: (comment) => dispatch(CommentActions.setActiveComment(comment)),
       fetchCommentsForPost: (post) => dispatch(CommentActions.fetchCommentsForPost({ post })),
       updateCommentScore: (comment, voteType) => dispatch(CommentActions.updateCommentScore({ comment, voteType })),
       deleteComment: (comment) => dispatch(CommentActions.deleteComment({ comment }))

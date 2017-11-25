@@ -7,6 +7,7 @@ export const POST_NEW_COMMENT = 'POST_NEW_COMMENT';
 export const UPDATE_COMMENT_SCORE = 'UPDATE_COMMENT_SCORE';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
 export const EDIT_COMMENT = 'EDIT_COMMENT';
+export const SET_ACTIVE_COMMENT = 'SET_ACTIVE_COMMENT';
 
 /* --- Action creators --- */
 export function fetchCommentsForPost ({ post }) {
@@ -44,4 +45,11 @@ export function editComment ({ comment }) {
     EDIT_COMMENT,
     PostsAPI.editComment(comment)
   );
+}
+
+export function setActiveComment (comment) {
+  return {
+    type: SET_ACTIVE_COMMENT,
+    comment
+  };
 }

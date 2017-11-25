@@ -26,7 +26,7 @@ class CategoryList extends Component {
         </li>
         {categories.map((category) => (
           <li key={category.path} className={category.path === activeCategory ? 'active' : ''}>
-            <Link to={`/${category.path}`} onClick={() => actions.setActiveCategory(category.path)}>{category.name}</Link>
+            <Link to={`/${category.path}`} onClick={() => actions.setActiveCategory(category)}>{category.name}</Link>
           </li>
         ))}
       </ul>
@@ -45,7 +45,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       fetchCategories: () => dispatch(CategoryActions.fetchCategories()),
-      setActiveCategory: (categoryId) => dispatch(CategoryActions.setActiveCategory({ categoryId }))
+      setActiveCategory: (category) => dispatch(CategoryActions.setActiveCategory({ category }))
     }
   };
 }

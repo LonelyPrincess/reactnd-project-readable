@@ -3,7 +3,8 @@ import {
   POST_NEW_COMMENT,
   UPDATE_COMMENT_SCORE,
   DELETE_COMMENT,
-  EDIT_COMMENT
+  EDIT_COMMENT,
+  SET_ACTIVE_COMMENT
 } from '../actions/comment';
 
 import { sortByObjectProperty } from '../utils/Utils';
@@ -58,3 +59,15 @@ function comments (state = initialState, action) {
 }
 
 export default comments;
+
+
+export function activeCommentReducer (state = null, action) {
+  switch (action.type) {
+    case SET_ACTIVE_COMMENT:
+      return action.comment ? action.comment.id : null;
+    default:
+      console.debug(`<ActiveCommentReducer> Unknown action ${action.type}`);
+  }
+
+  return state;
+}

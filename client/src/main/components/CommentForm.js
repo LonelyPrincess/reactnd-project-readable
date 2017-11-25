@@ -46,7 +46,8 @@ class CommentForm extends Component {
 
     if (this.state.editMode) {
       actions.editComment({ ...comment, ...this.state })
-        .then(this.resetForm);
+        .then(this.resetForm)
+        .then(actions.setActiveComment(null));
     } else {
       actions.createComment(post, this.state)
         .then(this.resetForm);
@@ -76,13 +77,27 @@ CommentForm.propTypes = {
   comment: PropTypes.object
 };
 
+function mapStateToProps(state) {
+  let activeComment = null;
+
+  if (state.activeCommentReducer) {
+    let commentIndex = state.commentReducer.findIndex(comment => comment.id === state.activeCommentReducer);
+    activeComment = state.commentReducer[commentIndex];
+  }
+
+  return {
+    comment: activeComment
+  };
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
+      setActiveComment: (comment) => dispatch(CommentActions.setActiveComment(comment)),
       createComment: (post, comment) => dispatch(CommentActions.postNewComment({ post, comment })),
       editComment: (comment) => dispatch(CommentActions.editComment({ comment }))
     }
   };
 }
 
-export default connect(null, mapDispatchToProps)(CommentForm);
+export default connect(mapStateToProps, mapDispatchToProps)(CommentForm);
