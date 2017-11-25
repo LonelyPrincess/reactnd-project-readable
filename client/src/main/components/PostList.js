@@ -13,18 +13,19 @@ class PostList extends Component {
   render() {
     const { posts, activeCategory } = this.props;
 
+    const postsToDisplay = posts
+      .filter(post => !activeCategory || post.category === activeCategory);
+
     return (
       <div className="post-list">
         <small className="stats">
-          {posts.length
-            ? `Showing ${posts.length} posts `
+          {postsToDisplay.length
+            ? `Showing ${postsToDisplay.length} posts `
             : `No posts found `}
           for <em>{activeCategory ? `"${activeCategory}"` : `all categories`}</em>
         </small>
 
-        {posts
-          .filter(post => !activeCategory || post.category === activeCategory)
-          .map((post) => (
+        {postsToDisplay.map((post) => (
             <PostListItem key={post.id} post={post} />
           )
         )}
