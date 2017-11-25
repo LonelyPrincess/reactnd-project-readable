@@ -25,30 +25,27 @@ class PostForm extends Component {
   };
 
   componentWillMount () {
-    this.props.actions.setActiveCategory(this.props.category);
     if (this.props.postId) {
-      this.props.actions.fetchPost(this.props.postId);
-    }
-  }
-
-  componentWillReceiveProps (newProps) {
-    const post = newProps.post;
-    if (post) {
-      this.setState({
-        title: post.title,
-        body: post.body,
-        author: post.author,
-        category: post.category,
-        editMode: true
-      });
+      this.setState({ editMode: true });
+      this.props.actions.fetchPost(this.props.postId)
+        .then(this.initializeFormWithPostData);
     } else {
-
-      // If creating, initialize category input with currently selected value
       this.setState({
+        editMode: false,
         category: this.props.activeCategory || ''
       });
     }
   }
+
+  initializeFormWithPostData = () => {
+    const post = this.props.post;
+    this.setState({
+      title: post.title,
+      body: post.body,
+      author: post.author,
+      category: post.category
+    });
+  };
 
   savePost = (event) => {
     event.preventDefault();
@@ -92,7 +89,6 @@ class PostForm extends Component {
       </form>
     );
   }
-
 }
 
 PostForm.propTypes = {
@@ -114,8 +110,7 @@ function mapDispatchToProps(dispatch) {
       fetchCategories: () => dispatch(CategoryActions.fetchCategories()),
       createPost: (data) => dispatch(PostActions.createPost(data)),
       fetchPost: (postId) => dispatch(PostActions.fetchPostData({ postId })),
-      editPost: (data) => dispatch(PostActions.editPost(data)),
-      setActiveCategory: (category) => dispatch(CategoryActions.setActiveCategory(category))
+      editPost: (data) => dispatch(PostActions.editPost(data))
     }
   };
 }

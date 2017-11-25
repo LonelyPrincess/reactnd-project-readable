@@ -7,8 +7,7 @@ import {
   FETCH_POST_DATA,          // TODO: not needed
   CREATE_POST,
   EDIT_POST,
-  SET_ACTIVE_POST,
-  UNSET_ACTIVE_POST
+  SET_ACTIVE_POST
 } from '../actions/post';
 
 import { sortByObjectProperty } from '../utils/Utils';
@@ -90,8 +89,6 @@ export function activePostReducer (state = null, action) {
       return (action.status === 'success') ? action.response : null;
     case SET_ACTIVE_POST:
       return action.post;
-    case UNSET_ACTIVE_POST:
-      return null;
     default:
       console.debug(`<ActivePostReducer> Unknown action ${action.type}`);
   }

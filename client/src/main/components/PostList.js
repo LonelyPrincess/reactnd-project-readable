@@ -28,9 +28,8 @@ class PostList extends Component {
         </small>
 
         {postsToDisplay.map((post) => (
-            <PostListItem key={post.id} post={post} />
-          )
-        )}
+          <PostListItem key={post.id} post={post} />
+        ))}
       </div>
     );
   }
