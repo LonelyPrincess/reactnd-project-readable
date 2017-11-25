@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 
 import CommentBox from './CommentBox';
 import * as PostActions from '../actions/post';
+import * as CategoryActions from '../actions/category';
 
 /**
  * Component used to display all information on a post.
@@ -18,6 +19,7 @@ class PostDetails extends Component {
 
   componentWillMount() {
     this.props.actions.fetchPost(this.props.postId);
+    this.props.actions.setActiveCategory(this.props.category);
   }
 
   render() {
@@ -83,7 +85,8 @@ function mapDispatchToProps(dispatch) {
     actions: {
       fetchPost: (postId) => dispatch(PostActions.fetchPostData({ postId })),
       deletePost: (post) => dispatch(PostActions.deletePost({ post })),
-      updatePostScore: (post, voteType) => dispatch(PostActions.updatePostScore({ post, voteType }))
+      updatePostScore: (post, voteType) => dispatch(PostActions.updatePostScore({ post, voteType })),
+      setActiveCategory: (category) => dispatch(CategoryActions.setActiveCategory(category))
     }
   };
 }

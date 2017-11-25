@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import * as PostActions from '../actions/post';
+import * as CategoryActions from '../actions/category';
 
 import PostListItem from './PostListItem';
 
 class PostList extends Component {
   componentWillMount() {
     this.props.actions.fetchPosts();
+    this.props.actions.setActiveCategory(this.props.category);
   }
 
   render() {
@@ -46,7 +48,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch, ownProps) {
   return {
     actions: {
-      fetchPosts: () => dispatch(PostActions.fetchPosts())
+      fetchPosts: () => dispatch(PostActions.fetchPosts()),
+      setActiveCategory: (category) => dispatch(CategoryActions.setActiveCategory(category))
     }
   };
 }

@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import * as PostActions from '../actions/post';
-import * as CategoryActions from '../actions/category';
 
 /**
  * Stateless component that contains information on a post (excluding comments).
@@ -28,7 +27,7 @@ function PostListItem (props) {
         <div className="score">{post.voteScore}</div>
       </div>
 
-      <Link to={`/${post.category}/${post.id}`} onClick={() => actions.setActiveCategory(post.category)}>
+      <Link to={`/${post.category}/${post.id}`}>
         <h2>{post.title}</h2>
       </Link>
       <small>Posted by <em>{post.author}</em> on {new Date(post.timestamp).toLocaleString()}</small>
@@ -67,8 +66,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       deletePost: (post) => dispatch(PostActions.deletePost({ post })),
-      updatePostScore: (post, voteType) => dispatch(PostActions.updatePostScore({ post, voteType })),
-      setActiveCategory: (category) => dispatch(CategoryActions.setActiveCategory(category))
+      updatePostScore: (post, voteType) => dispatch(PostActions.updatePostScore({ post, voteType }))
     }
   };
 }

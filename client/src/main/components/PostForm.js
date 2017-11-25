@@ -25,12 +25,7 @@ class PostForm extends Component {
   };
 
   componentWillMount () {
-
-    // If creating, initialize category input with currently selected value
-    this.setState({
-      category: this.props.activeCategory || ''
-    });
-
+    this.props.actions.setActiveCategory(this.props.category);
     if (this.props.postId) {
       this.props.actions.fetchPost(this.props.postId);
     }
@@ -45,6 +40,12 @@ class PostForm extends Component {
         author: post.author,
         category: post.category,
         editMode: true
+      });
+    } else {
+
+      // If creating, initialize category input with currently selected value
+      this.setState({
+        category: this.props.activeCategory || ''
       });
     }
   }
@@ -113,7 +114,8 @@ function mapDispatchToProps(dispatch) {
       fetchCategories: () => dispatch(CategoryActions.fetchCategories()),
       createPost: (data) => dispatch(PostActions.createPost(data)),
       fetchPost: (postId) => dispatch(PostActions.fetchPostData({ postId })),
-      editPost: (data) => dispatch(PostActions.editPost(data))
+      editPost: (data) => dispatch(PostActions.editPost(data)),
+      setActiveCategory: (category) => dispatch(CategoryActions.setActiveCategory(category))
     }
   };
 }
