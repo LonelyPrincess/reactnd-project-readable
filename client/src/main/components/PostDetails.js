@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import CommentBox from './CommentBox';
+import ErrorMessage from './ErrorMessage';
+
 import * as PostActions from '../actions/post';
 import * as CategoryActions from '../actions/category';
 
@@ -27,13 +29,8 @@ class PostDetails extends Component {
 
     if (!post) {
       return (
-        <small>Post not found</small>
+        <ErrorMessage details={`Post with id ${this.props.postId} doesn't exist or has been deleted.`} />
       );
-    }
-
-    if (post.id !== this.props.postId) {
-      console.log("Still loading...");
-      return null;
     }
 
     return (

@@ -376,6 +376,37 @@ section.side-block ul .active i {
     color: #de212e;
 }
 
+/* --- Error page --- */
+
+.error-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.error-details h2 {
+    margin-top: 0;
+}
+
+.error-details .image {
+    width: 10em;
+    height: 10em;
+    margin: 3em;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url('../images/lebkuchen-cry.svg');
+}
+
+.error-details pre {
+    padding: 1em;
+    background: antiquewhite;
+    width: 75%;
+    border-radius: 5px;
+    text-align: center;
+    white-space: pre-line;
+    line-height: 1.75em;
+}
 
 /* --- Test styles for comment boxes --- */
 
