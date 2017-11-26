@@ -33,7 +33,7 @@ function SortOptions (props) {
 
 function mapStateToProps(state) {
   return {
-    activeCriteria: state.activeSortCriteriaReducer
+    activeCriteria: state.activeSortCriteria
   };
 }
 
