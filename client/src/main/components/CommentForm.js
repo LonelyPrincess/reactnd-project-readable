@@ -79,7 +79,7 @@ CommentForm.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    comment: state.activeCommentReducer
+    comment: state.activeComment
   };
 }
 

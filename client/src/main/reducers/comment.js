@@ -9,17 +9,9 @@ import {
 
 import { sortByObjectProperty } from '../utils/Utils';
 
-/* --- Categories reducer --- */
-
-// Default initial state
-const initialState = [];
-
-// If state is undefined, it will receive initialState by default
-function comments (state = initialState, action) {
-
+/* --- Comment list reducer --- */
+export function comments (state = [], action) {
   let updatedState = state.slice();
-
-  let commentIndex;
 
   switch (action.type) {
     case FETCH_COMMENTS_FOR_POST:
@@ -27,15 +19,16 @@ function comments (state = initialState, action) {
       updatedState = sortByObjectProperty(updatedState, 'voteScore');
       break;
     case POST_NEW_COMMENT:
+      console.log(`Added new comment ${action.response.id}`);
       updatedState.push(action.response);
       updatedState = sortByObjectProperty(updatedState, 'voteScore');
       break;
     case UPDATE_COMMENT_SCORE:
-      console.log(`Updating score for comment ${action.response.id}`);
-      commentIndex = updatedState.findIndex(item => item.id === action.response.id);
+    case EDIT_COMMENT:
+      console.log(`Comment ${action.response.id} updated`);
+      let commentIndex = updatedState.findIndex(item => item.id === action.response.id);
       updatedState[commentIndex] = {
-        ...updatedState[commentIndex],
-        voteScore: action.response.voteScore
+        ...action.response
       };
       updatedState = sortByObjectProperty(updatedState, 'voteScore');
       break;
@@ -44,13 +37,6 @@ function comments (state = initialState, action) {
       updatedState = updatedState
         .filter((comment) => comment.id !== action.response.id);
       break;
-    case EDIT_COMMENT:
-      console.log(`Comment ${action.response.id} updated`);
-      commentIndex = updatedState.findIndex(item => item.id === action.response.id);
-      updatedState[commentIndex] = {
-        ...action.response
-      };
-      break;
     default:
       console.debug(`<CommentReducer> Unknown action ${action.type}`);
   }
@@ -58,10 +44,8 @@ function comments (state = initialState, action) {
   return updatedState;
 }
 
-export default comments;
-
-
-export function activeCommentReducer (state = null, action) {
+/* --- Active comment reducer --- */
+export function activeComment (state = null, action) {
   switch (action.type) {
     case SET_ACTIVE_COMMENT:
       return action.comment ? action.comment : null;
@@ -71,3 +55,9 @@ export function activeCommentReducer (state = null, action) {
 
   return state;
 }
+
+/* --- Export both by default --- */
+export default {
+  comments,
+  activeComment
+};

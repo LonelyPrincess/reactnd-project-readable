@@ -66,7 +66,7 @@ CommentBox.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    comments: state.commentReducer
+    comments: state.comments
   };
 }
 
