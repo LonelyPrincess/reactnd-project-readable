@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import * as PostActions from '../actions/post';
 import * as CategoryActions from '../actions/category';
 
 import PostListItem from './PostListItem';
 
+/**
+ * Component to display a list of posts.
+ *
+ * @module components/PostList
+ * @author Sara Hernández <sara.her.su@gmail.com>
+ * @param {object} props - Component props.
+ * @param {string} props.category - Category which will be used to filter
+ *  the displayed elements.
+ */
 class PostList extends Component {
   componentWillMount() {
     this.props.actions.fetchPosts();
@@ -35,8 +45,12 @@ class PostList extends Component {
   }
 }
 
-// We transform the state structure as we had it in our reducer
-// as we want it in our component props
+PostList.propTypes = {
+  category: PropTypes.string
+};
+
+/* --- Redux mapping methods ----------------------------------------------- */
+
 function mapStateToProps(state) {
   return {
     posts: state.posts,

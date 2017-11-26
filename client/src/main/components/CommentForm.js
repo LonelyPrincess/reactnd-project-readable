@@ -77,6 +77,8 @@ CommentForm.propTypes = {
   comment: PropTypes.object
 };
 
+/* --- Redux mapping methods ----------------------------------------------- */
+
 function mapStateToProps(state) {
   return {
     comment: state.activeComment

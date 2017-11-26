@@ -36,6 +36,8 @@ class CategoryList extends Component {
   }
 };
 
+/* --- Redux mapping methods ----------------------------------------------- */
+
 function mapStateToProps(state) {
   return {
     categories: state.categories,

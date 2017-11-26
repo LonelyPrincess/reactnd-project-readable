@@ -42,7 +42,7 @@ class PostDetails extends Component {
           </div>
 
           <h2>{post.title}</h2>
-          <small>Posted by <em>{post.author}</em> on {new Date(post.timestamp).toLocaleString()}</small>
+          <small>Posted by <em>{post.author}</em> on <time>{new Date(post.timestamp).toLocaleString()}</time></small>
           <main className="post-body">{post.body}</main>
 
           <div className="button-container">
@@ -70,6 +70,8 @@ class PostDetails extends Component {
 PostDetails.propTypes = {
   postId: PropTypes.string.isRequired
 };
+
+/* --- Redux mapping methods ----------------------------------------------- */
 
 function mapStateToProps(state) {
   return {

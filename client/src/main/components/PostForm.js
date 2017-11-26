@@ -12,7 +12,7 @@ import * as CategoryActions from '../actions/category';
  * @module components/PostForm
  * @author Sara Hernández <sara.her.su@gmail.com>
  * @param {object} props - Component props.
- * @param {object} props.post - Post to edit (if applicable).
+ * @param {object} props.postId - Id of the post to edit (if applicable).
  */
 class PostForm extends Component {
 
@@ -24,13 +24,20 @@ class PostForm extends Component {
     editMode: false
   };
 
+  /**
+   * Event handler that will be triggered when the component is mounted.
+   *
+   * When it triggers, enable edit mode if the component received a post id
+   * as props. Otherwise, keep fields empty in the state to create a new one.
+   * If there's an active category, initialize the category field with that value.
+   */
   componentWillMount () {
     if (this.props.postId) {
       this.setState({ editMode: true });
       this.props.actions.fetchPost(this.props.postId)
         .then(this.initializeFormWithPostData);
       this.props.actions.setActiveCategory(this.props.category);
-      } else {
+    } else {
       this.setState({
         editMode: false,
         category: this.props.activeCategory || ''
@@ -38,6 +45,9 @@ class PostForm extends Component {
     }
   }
 
+  /**
+   * Initialize component state based on the post included in the props.
+   */
   initializeFormWithPostData = () => {
     const post = this.props.post;
     this.setState({
@@ -48,6 +58,10 @@ class PostForm extends Component {
     });
   };
 
+  /**
+   * Handler for the 'submit' event of the form, which will allow the user to
+   * save the post into the database.
+   */
   savePost = (event) => {
     event.preventDefault();
 
@@ -58,8 +72,6 @@ class PostForm extends Component {
       this.props.actions.createPost(this.state)
         .then(() => this.props.history.push(`/${this.props.post.category}/${this.props.post.id}`));
     }
-
-    // TODO: check if action ended up in error: if so, don't redirect
   };
 
   render () {
@@ -96,6 +108,8 @@ PostForm.propTypes = {
   post: PropTypes.object,
   category: PropTypes.string
 };
+
+/* --- Redux mapping methods ----------------------------------------------- */
 
 function mapStateToProps(state) {
   return {

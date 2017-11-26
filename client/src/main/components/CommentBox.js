@@ -48,7 +48,7 @@ class CommentBox extends Component {
 
             <div className="body">{comment.body}</div>
 
-            <small>Posted by <em>{comment.author}</em> on {new Date(comment.timestamp).toLocaleString()}</small>
+            <small>Posted by <em>{comment.author}</em> on <time>{new Date(comment.timestamp).toLocaleString()}</time></small>
           </div>
         ))}
 
@@ -63,6 +63,8 @@ class CommentBox extends Component {
 CommentBox.propTypes = {
   post: PropTypes.object.isRequired
 };
+
+/* --- Redux mapping methods ----------------------------------------------- */
 
 function mapStateToProps(state) {
   return {

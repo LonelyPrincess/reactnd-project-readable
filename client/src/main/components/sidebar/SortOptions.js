@@ -29,6 +29,8 @@ function SortOptions (props) {
   );
 };
 
+/* --- Redux mapping methods ----------------------------------------------- */
+
 function mapStateToProps(state) {
   return {
     activeCriteria: state.activeSortCriteriaReducer
