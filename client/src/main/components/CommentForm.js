@@ -78,15 +78,8 @@ CommentForm.propTypes = {
 };
 
 function mapStateToProps(state) {
-  let activeComment = null;
-
-  if (state.activeCommentReducer) {
-    let commentIndex = state.commentReducer.findIndex(comment => comment.id === state.activeCommentReducer);
-    activeComment = state.commentReducer[commentIndex];
-  }
-
   return {
-    comment: activeComment
+    comment: state.activeCommentReducer
   };
 }
 

@@ -64,7 +64,7 @@ export default comments;
 export function activeCommentReducer (state = null, action) {
   switch (action.type) {
     case SET_ACTIVE_COMMENT:
-      return action.comment ? action.comment.id : null;
+      return action.comment ? action.comment : null;
     default:
       console.debug(`<ActiveCommentReducer> Unknown action ${action.type}`);
   }
