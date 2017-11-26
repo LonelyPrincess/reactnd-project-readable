@@ -92,3 +92,15 @@ export function activePostReducer (state = null, action) {
 
   return state;
 }
+
+export function activeSortCriteriaReducer (state = 'voteScore', action) {
+
+  switch (action.type) {
+    case SORT_POST_LIST:
+      return action.criteria;
+    default:
+      console.debug(`<ActiveSortCriteriaReducer> Unknown action ${action.type}`);
+  }
+
+  return state;
+}

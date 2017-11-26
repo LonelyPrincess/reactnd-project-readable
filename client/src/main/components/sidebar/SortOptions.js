@@ -29,7 +29,11 @@ function SortOptions (props) {
   );
 };
 
-// TODO: include active sorting criteria in redux store
+function mapStateToProps(state) {
+  return {
+    activeCriteria: state.activeSortCriteriaReducer
+  };
+}
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -39,4 +43,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(SortOptions);
+export default connect(mapStateToProps, mapDispatchToProps)(SortOptions);

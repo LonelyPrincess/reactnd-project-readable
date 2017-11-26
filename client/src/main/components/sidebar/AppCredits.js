@@ -6,7 +6,7 @@ import React from 'react';
  * @module components/AppCredits
  * @author Sara Hernández <sara.her.su@gmail.com>
  */
-function AppCredits (props) {
+function AppCredits () {
   return (
     <ul>
       <li>

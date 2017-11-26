@@ -9,7 +9,7 @@ import App from './main/App';
 import postReducer from './main/reducers/post';
 import commentReducer from './main/reducers/comment';
 import categoryReducer from './main/reducers/category';
-import { activePostReducer } from './main/reducers/post';
+import { activePostReducer, activeSortCriteriaReducer } from './main/reducers/post';
 import { activeCommentReducer } from './main/reducers/comment';
 
 import './res/styles/index.css';
@@ -19,7 +19,8 @@ const rootReducer = combineReducers({
   commentReducer,
   categoryReducer,
   activePostReducer,
-  activeCommentReducer
+  activeCommentReducer,
+  activeSortCriteriaReducer
 })
 
 const store = createStore(
