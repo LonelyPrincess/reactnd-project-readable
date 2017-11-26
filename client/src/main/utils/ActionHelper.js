@@ -20,12 +20,6 @@ export function createAsyncAction(actionType, ajaxPromise, { status = null, resp
   }
 
   return (dispatch) => {
-
-    /*dispatch({
-      type: actionType,
-      isFetching: true
-    });*/
-
     return ajaxPromise
       .then((response) => {
         let resStatus = response.error ? 'error' : 'success';

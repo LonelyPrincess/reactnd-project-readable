@@ -16,7 +16,7 @@ import './res/styles/index.css';
 const rootReducer = combineReducers({
   postReducer,
   ...commentReducer,
-  categoryReducer,
+  ...categoryReducer,
   activePostReducer,
   activeSortCriteriaReducer
 })

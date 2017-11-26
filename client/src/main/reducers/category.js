@@ -3,52 +3,34 @@ import {
   SET_ACTIVE_CATEGORY
 } from '../actions/category';
 
-/* --- Categories reducer --- */
-
-// Default initial state
-const initialState = {
-  list: [],
-  active: null,
-  isLoading: false,
-  expirationDate: null
-};
-
-// If state is undefined, it will receive initialState by default
-function categories (state = initialState, action) {
-
-  let currentDate = new Date();
-
-  let updatedState = {
-    ...state,
-    isLoading: false,
-    expirationDate: currentDate.setMinutes(currentDate.getMinutes() + 30)
-  };
+/* --- Category list reducer --- */
+export function categories (state = [], action) {
 
   switch (action.type) {
     case FETCH_CATEGORIES:
-      if (action.isFetching) {
-        updatedState = {
-          ...state,
-          isLoading: true
-        }
-      } else {
-        updatedState = {
-          ...updatedState,
-          list: action.status === 'success' ? action.response.sort() : []
-        };
-      }
-      break;
-    case SET_ACTIVE_CATEGORY:
-      updatedState = {
-        ...state,
-        active: action.categoryId
-      };
-      break;
+      return action.status === 'success' ? action.response.sort() : [];
     default:
       console.debug(`<CategoryReducer> Unknown action ${action.type}`);
   }
 
-  return updatedState;
+  return state;
 }
 
-export default categories;
+/* --- Active category reducer --- */
+export function activeCategory (state = null, action) {
+
+  switch (action.type) {
+    case SET_ACTIVE_CATEGORY:
+      return action.categoryId || null;
+    default:
+      console.debug(`<ActiveCategoryReducer> Unknown action ${action.type}`);
+  }
+
+  return state;
+}
+
+/* Export a single object containing all category related reducers */
+export default {
+  categories,
+  activeCategory
+};
