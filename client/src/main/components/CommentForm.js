@@ -81,6 +81,7 @@ CommentForm.propTypes = {
 
 function mapStateToProps(state) {
   return {
+    post: state.activePost,
     comment: state.activeComment
   };
 }

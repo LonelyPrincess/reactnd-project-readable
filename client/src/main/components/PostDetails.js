@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import CommentBox from './CommentBox';
+import Loader from './others/Loader';
 import ErrorMessage from './others/ErrorMessage';
 
 import * as PostActions from '../actions/post';
+import * as CommentActions from '../actions/comment';
 import * as CategoryActions from '../actions/category';
 
 /**
@@ -19,8 +21,17 @@ import * as CategoryActions from '../actions/category';
  */
 class PostDetails extends Component {
 
+  state = {
+    isLoading: false
+  };
+
   componentWillMount() {
-    this.props.actions.fetchPost(this.props.postId);
+    this.setState({ isLoading: true });
+    this.props.actions.fetchPost(this.props.postId)
+      .then(() => {
+        this.props.actions.fetchCommentsForPost(this.props.post)
+          .then(this.setState({ isLoading: false }));
+      });
     this.props.actions.setActiveCategory(this.props.category);
   }
 
@@ -31,6 +42,10 @@ class PostDetails extends Component {
       return (
         <ErrorMessage details={`Post with id ${this.props.postId} doesn't exist or has been deleted.`} />
       );
+    }
+
+    if (this.state.isLoading) {
+      return (<Loader />);
     }
 
     return (
@@ -61,7 +76,7 @@ class PostDetails extends Component {
           </div>
         </article>
 
-        <CommentBox post={post} />
+        <CommentBox />
       </div>
     );
   }
@@ -85,7 +100,8 @@ function mapDispatchToProps(dispatch) {
       fetchPost: (postId) => dispatch(PostActions.fetchPostData({ postId })),
       deletePost: (post) => dispatch(PostActions.deletePost({ post })),
       updatePostScore: (post, voteType) => dispatch(PostActions.updatePostScore({ post, voteType })),
-      setActiveCategory: (category) => dispatch(CategoryActions.setActiveCategory(category))
+      setActiveCategory: (category) => dispatch(CategoryActions.setActiveCategory(category)),
+      fetchCommentsForPost: (post) => dispatch(CommentActions.fetchCommentsForPost({ post }))
     }
   };
 }

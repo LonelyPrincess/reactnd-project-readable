@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import CommentForm from './CommentForm';
@@ -15,16 +14,11 @@ import * as CommentActions from '../actions/comment';
  */
 class CommentBox extends Component {
 
-  componentWillMount() {
-    this.props.actions.fetchCommentsForPost(this.props.post);
-  }
-
   goToEditForm = (comment) => {
     this.props.actions.setActiveComment(comment);
     this.refs.commentFormTitle.scrollIntoView();
   };
 
-  // TODO: move individual comment to new component
   render() {
     const { actions } = this.props;
 
@@ -54,20 +48,17 @@ class CommentBox extends Component {
 
         { /* Comment form */ }
         <small ref="commentFormTitle" className="stats">Wanna share your thoughts?</small>
-        <CommentForm post={this.props.post} />
+        <CommentForm />
       </div>
     );
   }
 }
 
-CommentBox.propTypes = {
-  post: PropTypes.object.isRequired
-};
-
 /* --- Redux mapping methods ----------------------------------------------- */
 
 function mapStateToProps(state) {
   return {
+    post: state.activePost,
     comments: state.comments
   };
 }
@@ -76,7 +67,6 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       setActiveComment: (comment) => dispatch(CommentActions.setActiveComment(comment)),
-      fetchCommentsForPost: (post) => dispatch(CommentActions.fetchCommentsForPost({ post })),
       updateCommentScore: (comment, voteType) => dispatch(CommentActions.updateCommentScore({ comment, voteType })),
       deleteComment: (comment) => dispatch(CommentActions.deleteComment({ comment }))
     }
