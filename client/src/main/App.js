@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Switch, Link, Route, withRouter } from 'react-router-dom';
-
-import * as PostActions from './actions/post';
 
 import PostList from './components/PostList';
 import PostForm from './components/PostForm';
@@ -11,11 +8,6 @@ import CategoryList from './components/CategoryList';
 import SortOptions from './components/SortOptions';
 
 class App extends Component {
-
-  sortPostsBy = (criteria) => {
-    this.props.actions.sortPostsBy({ criteria });
-  };
-
   render() {
     return (
       <div className="container">
@@ -85,12 +77,4 @@ class App extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: {
-      sortPostsBy: (data) => dispatch(PostActions.sortPostsBy(data))
-    }
-  };
-}
-
-export default withRouter(connect(null, mapDispatchToProps)(App));
+export default withRouter(App);
