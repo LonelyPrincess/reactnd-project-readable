@@ -29,8 +29,12 @@ class PostDetails extends Component {
     this.setState({ isLoading: true });
     this.props.actions.fetchPost(this.props.postId)
       .then(() => {
-        this.props.actions.fetchCommentsForPost(this.props.post)
-          .then(this.setState({ isLoading: false }));
+        if (!this.props.post) {
+          this.setState({ isLoading: false });
+        } else {
+          this.props.actions.fetchCommentsForPost(this.props.post)
+            .then(this.setState({ isLoading: false }));
+        }
       });
     this.props.actions.setActiveCategory(this.props.category);
   }
