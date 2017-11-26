@@ -10,7 +10,6 @@ export const FILTER_POSTS_BY_CATEGORY = 'FILTER_POSTS_BY_CATEGORY';
 export const FETCH_POST_DATA = 'FETCH_POST_DATA';
 export const CREATE_POST = 'CREATE_POST';
 export const EDIT_POST = 'EDIT_POST';
-export const SET_ACTIVE_POST = 'SET_ACTIVE_POST';
 
 /* --- Action creators --- */
 export function fetchPosts () {
@@ -71,11 +70,4 @@ export function editPost ({ id, title, body }) {
     EDIT_POST,
     PostsAPI.editPost({ id, title, body })
   );
-}
-
-export function setActivePost ({ post }) {
-  return {
-    type: SET_ACTIVE_POST,
-    post
-  };
 }

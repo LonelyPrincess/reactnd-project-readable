@@ -6,8 +6,7 @@ import {
   FILTER_POSTS_BY_CATEGORY, // TODO: not needed
   FETCH_POST_DATA,          // TODO: not needed
   CREATE_POST,
-  EDIT_POST,
-  SET_ACTIVE_POST
+  EDIT_POST
 } from '../actions/post';
 
 import { sortByObjectProperty } from '../utils/Utils';
@@ -87,8 +86,6 @@ export function activePostReducer (state = null, action) {
     case FETCH_POST_DATA:
     case UPDATE_POST_SCORE:
       return (action.status === 'success') ? action.response : null;
-    case SET_ACTIVE_POST:
-      return action.post;
     default:
       console.debug(`<ActivePostReducer> Unknown action ${action.type}`);
   }
