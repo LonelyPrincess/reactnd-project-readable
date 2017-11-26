@@ -25,7 +25,7 @@ class App extends Component {
 
             { /* Show sort options only in post list pages */ }
             {["/", "/:category"].map(path => (
-              <Route key={path} path={path} exact render={() => (
+              <Route key={path} path={path} exact render={({ location }) => location.pathname !== '/create' && (
                 <section className="side-block">
                   <h1>Sort by</h1>
                   <SortOptions />
