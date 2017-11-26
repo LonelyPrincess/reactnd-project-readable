@@ -4,7 +4,7 @@ import {
 } from '../actions/category';
 
 /* --- Category list reducer --- */
-export function categories (state = [], action) {
+function categories (state = [], action) {
 
   switch (action.type) {
     case FETCH_CATEGORIES:
@@ -17,7 +17,7 @@ export function categories (state = [], action) {
 }
 
 /* --- Active category reducer --- */
-export function activeCategory (state = null, action) {
+function activeCategory (state = null, action) {
 
   switch (action.type) {
     case SET_ACTIVE_CATEGORY:

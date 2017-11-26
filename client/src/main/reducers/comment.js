@@ -10,7 +10,7 @@ import {
 import { sortByObjectProperty } from '../utils/Utils';
 
 /* --- Comment list reducer --- */
-export function comments (state = [], action) {
+function comments (state = [], action) {
   let updatedState = state.slice();
 
   switch (action.type) {
@@ -45,7 +45,7 @@ export function comments (state = [], action) {
 }
 
 /* --- Active comment reducer --- */
-export function activeComment (state = null, action) {
+function activeComment (state = null, action) {
   switch (action.type) {
     case SET_ACTIVE_COMMENT:
       return action.comment ? action.comment : null;

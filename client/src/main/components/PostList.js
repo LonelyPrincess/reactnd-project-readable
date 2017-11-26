@@ -39,7 +39,7 @@ class PostList extends Component {
 // as we want it in our component props
 function mapStateToProps(state) {
   return {
-    posts: state.postReducer,
+    posts: state.posts,
     activeCategory: state.activeCategory
   };
 }

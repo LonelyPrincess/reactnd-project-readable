@@ -3,25 +3,17 @@ import {
   DELETE_POST,
   UPDATE_POST_SCORE,
   SORT_POST_LIST,
-  FILTER_POSTS_BY_CATEGORY, // TODO: not needed
-  FETCH_POST_DATA,          // TODO: not needed
+  FETCH_POST_DATA,
   CREATE_POST,
   EDIT_POST
 } from '../actions/post';
 
 import { sortByObjectProperty } from '../utils/Utils';
 
-/* --- Posts reducer --- */
+/* --- Post list reducer --- */
+function posts (state = [], action) {
 
-// Default initial state
-const initialPostState = [];
-
-// If state is undefined, it will receive initialState by default
-function posts (state = initialPostState, action) {
-
-  // NOTE: We must ensure we're not updating the current state variable!!
-  // If we override the current variable instead of returning a new instance,
-  // connected components will not re-render
+  // Create a copy of the state to ensure we're not modifying the original
   let updatedState = state.slice();
 
   let postIndex;
@@ -31,24 +23,8 @@ function posts (state = initialPostState, action) {
       updatedState = action.status === 'success' ? action.response: [];
       sortByObjectProperty(updatedState, 'voteScore');
       break;
-    case DELETE_POST:
-      postIndex = updatedState.findIndex((item) => item.id === action.response.id);
-      updatedState.splice(postIndex, 1);
-      break;
-    case UPDATE_POST_SCORE:
-      postIndex = updatedState.findIndex((item) => item.id === action.response.id);
-      updatedState[postIndex] = {
-        ...updatedState[postIndex],
-        voteScore: action.response.voteScore
-      };
-      break;
     case SORT_POST_LIST:
       sortByObjectProperty(updatedState, action.criteria);
-      break;
-    case FILTER_POSTS_BY_CATEGORY:
-      console.log(`Showing ${action.response.length} posts for category ${action.category}...`);
-      updatedState = action.status === 'success' ? action.response: [];
-      sortByObjectProperty(updatedState, 'voteScore');
       break;
     case FETCH_POST_DATA:
       updatedState = [];
@@ -58,17 +34,21 @@ function posts (state = initialPostState, action) {
       break;
     case CREATE_POST:
       console.log(`Created post with id ${action.response.id}`);
-      postIndex = [];
       if (action.status === 'success') {
         updatedState.push(action.response);
       }
       break;
     case EDIT_POST:
+    case UPDATE_POST_SCORE:
       console.log(`Post ${action.response.id} updated`);
       postIndex = updatedState.findIndex(item => item.id === action.response.id);
       updatedState[postIndex] = {
         ...action.response
       };
+      break;
+    case DELETE_POST:
+      postIndex = updatedState.findIndex((item) => item.id === action.response.id);
+      updatedState.splice(postIndex, 1);
       break;
     default:
       console.debug(`<PostReducer> Unknown action ${action.type}`);
@@ -77,9 +57,8 @@ function posts (state = initialPostState, action) {
   return updatedState;
 }
 
-export default posts;
-
-export function activePostReducer (state = null, action) {
+/* --- Active post reducer --- */
+export function activePost (state = null, action) {
 
   switch (action.type) {
     case CREATE_POST:
@@ -93,7 +72,8 @@ export function activePostReducer (state = null, action) {
   return state;
 }
 
-export function activeSortCriteriaReducer (state = 'voteScore', action) {
+/* --- Active post sort criteria reducer --- */
+export function activeSortCriteria (state = 'voteScore', action) {
 
   switch (action.type) {
     case SORT_POST_LIST:
@@ -104,3 +84,10 @@ export function activeSortCriteriaReducer (state = 'voteScore', action) {
 
   return state;
 }
+
+/* Export a single object containing all post related reducers */
+export default {
+  posts,
+  activePost,
+  activeSortCriteria
+};
