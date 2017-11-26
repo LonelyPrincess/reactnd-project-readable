@@ -149,6 +149,7 @@ main small {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    clear: both;
 }
 
 .button-container button {
