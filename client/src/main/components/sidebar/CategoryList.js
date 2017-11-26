@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import * as CategoryActions from '../actions/category';
+import * as CategoryActions from '../../actions/category';
 
 /**
  * Component with the list of available categories.

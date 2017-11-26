@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import CommentBox from './CommentBox';
-import ErrorMessage from './ErrorMessage';
+import ErrorMessage from './others/ErrorMessage';
 
 import * as PostActions from '../actions/post';
 import * as CategoryActions from '../actions/category';

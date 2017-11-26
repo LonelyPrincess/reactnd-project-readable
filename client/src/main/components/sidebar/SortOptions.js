@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import * as PostActions from '../actions/post';
+import * as PostActions from '../../actions/post';
 
 /* Available sorting criteria */
 const availableCriteria = [

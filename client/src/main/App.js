@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Switch, Link, Route, withRouter } from 'react-router-dom';
 
+import SideBar from './components/sidebar/SideBar';
 import PostList from './components/PostList';
 import PostForm from './components/PostForm';
 import PostDetails from './components/PostDetails';
-import CategoryList from './components/CategoryList';
-import SortOptions from './components/SortOptions';
 
 class App extends Component {
   render() {
@@ -17,37 +16,11 @@ class App extends Component {
         </header>
 
         <div className="row">
-          <aside>
-            <section className="side-block">
-              <h1>Categories</h1>
-              <CategoryList />
-            </section>
 
-            { /* Show sort options only in post list pages */ }
-            {["/", "/:category"].map(path => (
-              <Route key={path} path={path} exact render={({ location }) => location.pathname !== '/create' && (
-                <section className="side-block">
-                  <h1>Sort by</h1>
-                  <SortOptions />
-                </section>
-              )} />
-            ))}
+          { /* Sidebar with navigation buttons */ }
+          <SideBar />
 
-            <section className="side-block">
-              <h1>Readable</h1>
-              <ul>
-                <li>
-                  <i className="fa fa-fw fa-linkedin"></i>
-                  <a href="https://es.linkedin.com/in/sara-hern%C3%A1ndez-su%C3%A1rez-167013115" target="_blank" rel="noopener noreferrer">Author</a>
-                </li>
-                <li>
-                  <i className="fa fa-fw fa-github"></i>
-                  <a href="https://github.com/LonelyPrincess/reactnd-project-readable" target="_blank" rel="noopener noreferrer">Repository</a>
-                </li>
-              </ul>
-            </section>
-          </aside>
-
+          { /* Application body */ }
           <main>
             <Switch>
               <Route path="/" exact component={PostList} />
