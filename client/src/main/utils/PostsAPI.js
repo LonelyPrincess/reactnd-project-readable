@@ -6,7 +6,7 @@
  * @author Sara Hernández <sara.her.su@gmail.com>
  */
 
-import generateUuid from 'generate-uuid';
+import { generateRandomId } from './Utils';
 
 const api = 'http://localhost:3001';
 
@@ -108,7 +108,7 @@ export const getPostComments = (post) => {
  */
 export const postComment = (post, comment) => {
   const data = {
-    id: generateUuid().substr(-12),
+    id: generateRandomId(),
     timestamp: new Date(),
     body: comment.body,
     author: comment.author,
@@ -131,7 +131,7 @@ export const postComment = (post, comment) => {
  */
 export const createPost = ({ title, body, author, category }) => {
   const data = {
-    id: generateUuid().substr(-12),
+    id: generateRandomId(),
     timestamp: new Date().getTime(),
     title,
     body,

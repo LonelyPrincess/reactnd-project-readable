@@ -1,3 +1,4 @@
+import uuidv4 from 'uuid/v4';
 
 /**
  * Sort array of objects based on a property.
@@ -20,4 +21,13 @@ export function sortByObjectProperty (objArray, property, order = 'DESC') {
 
     return result;
   });
+}
+
+/**
+ * Generate random uuid without separator characters.
+ *
+ * @returns {string} Generated id with a length of 22 characters.
+ */
+export function generateRandomId () {
+  return uuidv4().replace(/-/gi, '').substr(-22);
 }
